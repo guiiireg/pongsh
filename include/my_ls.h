@@ -24,6 +24,12 @@
 int my_ls(const char *path);
 int my_ls_with_flags(const char *path, const char *flags);
 void parse_ls_flags(const char *flags, int *show_hidden, int *show_details);
+DIR *open_directory(const char *dir_path);
+void sort_entries(char **entries, int count);
+int read_directory_entries(DIR *dir, char **entries, int show_hidden);
+void free_entries(char **entries, int count);
+void display_entries(char **entries, int count, const char *dir_path,
+    int show_details);
 void process_directory_entries(DIR *dir, const char *dir_path,
     int show_hidden, int show_details);
 void print_file_info(const char *filename, const char *path, int show_details);

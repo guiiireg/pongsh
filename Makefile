@@ -78,16 +78,17 @@ DIST_DIR    := dist
 # SOURCE FILES AND DEPENDENCIES
 # =============================================================================
 # Automatic source file discovery
-MAIN_SRC := $(SRC_DIR)/main.c
+SRC_SRCS := $(wildcard $(SRC_DIR)/*.c)
 LIB_SRCS := $(wildcard $(LIB_DIR)/*.c) \
 			$(wildcard $(LIB_DIR)/my_printf/*.c) \
-			$(wildcard $(LIB_DIR)/my_ls/*.c)
+			$(wildcard $(LIB_DIR)/my_ls/*.c) \
+			$(wildcard $(LIB_DIR)/my_cd/*.c)
 HEADERS  := $(wildcard $(INC_DIR)/*.h)
 
 # Object file generation
-MAIN_OBJ := $(OBJ_DIR)/main.o
+SRC_OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_SRCS))
 LIB_OBJS := $(patsubst $(LIB_DIR)/%.c,$(OBJ_DIR)/%.o,$(LIB_SRCS))
-ALL_OBJS := $(MAIN_OBJ) $(LIB_OBJS)
+ALL_OBJS := $(SRC_OBJS) $(LIB_OBJS)
 
 # Dependency files
 DEPS := $(ALL_OBJS:.o=.d)
@@ -270,7 +271,7 @@ info: banner
 	@echo "$(BOLD)Source Files:$(RESET)"
 	@echo "$(DIM)=====================================================\
 ==============================$(RESET)"
-	@echo "  $(CYAN)Main files:$(RESET)   $(BOLD)$(words $(MAIN_SRC))$(RESET)"
+	@echo "  $(CYAN)Main files:$(RESET)   $(BOLD)$(words $(SRC_SRCS))$(RESET)"
 	@echo "  $(CYAN)Library files:$(RESET) \
 $(BOLD)$(words $(LIB_SRCS))$(RESET)"
 	@echo "  $(CYAN)Header files:$(RESET) $(BOLD)$(words $(HEADERS))$(RESET)"
