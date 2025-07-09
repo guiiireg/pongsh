@@ -82,7 +82,9 @@ SRC_SRCS := $(wildcard $(SRC_DIR)/*.c)
 LIB_SRCS := $(wildcard $(LIB_DIR)/*.c) \
 			$(wildcard $(LIB_DIR)/my_printf/*.c) \
 			$(wildcard $(LIB_DIR)/my_ls/*.c) \
-			$(wildcard $(LIB_DIR)/my_cd/*.c)
+			$(wildcard $(LIB_DIR)/my_cd/*.c) \
+			$(wildcard $(LIB_DIR)/my_pwd/*.c) \
+			$(wildcard $(LIB_DIR)/my_echo/*.c)
 HEADERS  := $(wildcard $(INC_DIR)/*.h)
 
 # Object file generation

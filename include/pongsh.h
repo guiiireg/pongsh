@@ -28,6 +28,7 @@ typedef struct s_data {
 
 // ---- Shell main loop ----
 void shell_loop(void);
+void display_prompt(void);
 
 // ---- Input handling ----
 char *read_input(void);
@@ -59,5 +60,7 @@ char *my_itoa(int value);
     #include "my_printf.h"
     #include "my_ls.h"
     #include "my_cd.h"
+    #include "my_pwd.h"
+    #include "my_echo.h"
 
 #endif /* PONGSH_H */

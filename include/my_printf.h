@@ -15,7 +15,7 @@
     #include <stdarg.h>
     #include "pongsh.h"
 
-/* Function prototypes */
+// ---- Function prototypes ----
 int my_printf(const char *format, ...);
 int handle_format(const char *format, va_list args, int *i);
 int handle_string(va_list args);

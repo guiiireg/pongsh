@@ -58,6 +58,36 @@ static int handle_cd_command(const char *command)
     return -1;
 }
 
+static int handle_pwd_command(const char *command)
+{
+    if (my_strcmp(command, "pwd") == 0) {
+        my_pwd();
+        return 0;
+    }
+    return -1;
+}
+
+static int handle_echo_command(const char *command)
+{
+    if (my_strcmp(command, "echo") == 0) {
+        my_echo(NULL);
+        return 0;
+    }
+    if (my_strlen(command) >= 4 && command[0] == 'e' && command[1] == 'c' &&
+        command[2] == 'h' && command[3] == 'o') {
+        if (my_strlen(command) == 4) {
+            my_echo(NULL);
+            return 0;
+        }
+        if (command[4] == ' ') {
+            my_echo(command + 5);
+            return 0;
+        }
+        return 0;
+    }
+    return -1;
+}
+
 int execute_command(const char *command)
 {
     if (my_strcmp(command, "exit") == 0) {
@@ -71,6 +101,12 @@ int execute_command(const char *command)
         return 0;
     }
     if (handle_cd_command(command) == 0) {
+        return 0;
+    }
+    if (handle_pwd_command(command) == 0) {
+        return 0;
+    }
+    if (handle_echo_command(command) == 0) {
         return 0;
     }
     if (my_strlen(command) == 0) {
