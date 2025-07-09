@@ -1,0 +1,74 @@
+# ---- Compiled Object Files ----
+*.o
+*.obj
+*.lo
+*.d
+
+# ---- Compiled Static & Shared Libraries ----
+*.a
+*.so
+*.dll
+*.dylib
+
+# ---- Executables & Binaries ----
+*.exe
+*.out
+*.app
+*.bin
+
+# ---- Build & Distribution Directories ----
+build/
+dist/
+
+# ---- Dependency Files ----
+*.d
+
+# ---- IDE & Editor Files ----
+.vscode/
+.idea/
+*.sublime*
+*.code-workspace
+
+# ---- OS Generated Files ----
+.DS_Store
+Thumbs.db
+
+# ---- Backup & Swap Files ----
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# ---- Logs ----
+*.log
+
+# ---- CTags & Etags ----
+.tags
+.TAGS
+
+# ---- Misc ----
+*.gcda
+*.gcno
+*.gcov
+
+# ---- Ignore compiled output in lib/ subfolders ----
+lib/**/*.o
+lib/**/*.obj
+lib/**/*.d
+
+# ---- Ignore compiled output in src/ subfolders ----
+src/**/*.o
+src/**/*.obj
+src/**/*.d
+
+# ---- Ignore compiled output in include/ subfolders ----
+include/**/*.o
+include/**/*.obj
+include/**/*.d
+
+# ---- Ignore binaries in build/bin ----
+build/bin/
+
+# ---- Ignore object files in build/obj ----
+build/obj/
