@@ -17,7 +17,8 @@ static char *get_home_directory(void)
 
     home = getenv("HOME");
     if (!home) {
-        my_printf("my_cd: HOME environment variable not set\n");
+        my_printf("%s%s %smy_cd: HOME environment variable not set%s\n",
+                  ERROR_COLOR, CROSS_MARK, RESET, RESET);
         return NULL;
     }
     return my_strdup(home);
@@ -28,15 +29,18 @@ int validate_directory(const char *path)
     struct stat file_stat;
 
     if (!path) {
-        my_printf("my_cd: path is null\n");
+                my_printf("%s%s %smy_cd: path is null%s\n",
+                    ERROR_COLOR, CROSS_MARK, RESET, RESET);
         return -1;
     }
     if (stat(path, &file_stat) == -1) {
-        my_printf("my_cd: %s: No such file or directory\n", path);
+                my_printf("%s%s %smy_cd: %s%s%s: No such file or directory%s\n",
+                  ERROR_COLOR, CROSS_MARK, RESET, ERROR_COLOR, path, RESET, RESET);
         return -1;
     }
     if (!S_ISDIR(file_stat.st_mode)) {
-        my_printf("my_cd: %s: Not a directory\n", path);
+                my_printf("%s%s %smy_cd: %s%s%s: Not a directory%s\n",
+                  ERROR_COLOR, CROSS_MARK, RESET, ERROR_COLOR, path, RESET, RESET);
         return -1;
     }
     return 0;
@@ -54,7 +58,8 @@ char *resolve_cd_path(const char *path)
     }
     resolved_path = my_strdup(path);
     if (!resolved_path) {
-        my_printf("my_cd: memory allocation failed\n");
+                my_printf("%s%s %smy_cd: memory allocation failed%s\n",
+                  ERROR_COLOR, CROSS_MARK, RESET, RESET);
         return NULL;
     }
     return resolved_path;
@@ -93,7 +98,8 @@ void update_pwd_env(const char *new_path)
 int change_to_directory(const char *path)
 {
     if (chdir(path) == -1) {
-        my_printf("my_cd: %s: Permission denied or path error\n", path);
+                my_printf("%s%s %smy_cd: %s%s%s: Permission denied or path error%s\n",
+                  ERROR_COLOR, CROSS_MARK, RESET, ERROR_COLOR, path, RESET, RESET);
         return -1;
     }
     return 0;

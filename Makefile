@@ -78,13 +78,17 @@ DIST_DIR    := dist
 # SOURCE FILES AND DEPENDENCIES
 # =============================================================================
 # Automatic source file discovery
-SRC_SRCS := $(wildcard $(SRC_DIR)/*.c)
+SRC_SRCS := $(wildcard $(SRC_DIR)/*.c) \
+			$(wildcard $(SRC_DIR)/prompt/*.c)
 LIB_SRCS := $(wildcard $(LIB_DIR)/*.c) \
+			$(wildcard $(LIB_DIR)/display/*.c) \
+			$(wildcard $(LIB_DIR)/utils/*.c) \
 			$(wildcard $(LIB_DIR)/my_printf/*.c) \
 			$(wildcard $(LIB_DIR)/my_ls/*.c) \
 			$(wildcard $(LIB_DIR)/my_cd/*.c) \
 			$(wildcard $(LIB_DIR)/my_pwd/*.c) \
-			$(wildcard $(LIB_DIR)/my_echo/*.c)
+			$(wildcard $(LIB_DIR)/my_echo/*.c) \
+			$(wildcard $(LIB_DIR)/my_cat/*.c)
 HEADERS  := $(wildcard $(INC_DIR)/*.h)
 
 # Object file generation
@@ -131,6 +135,7 @@ $(STATIC_LIB): $(LIB_OBJS) | $(BUILD_DIR)
 # Compile main source files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@echo "$(BUILD) $(YELLOW)[COMPILE]$(RESET) $< → $@"
+	@$(MKDIR) $(dir $@)
 	@$(CC) -I$(INC_DIR) $(CFLAGS) -MMD -MP -c $< -o $@
 
 # Compile library source files

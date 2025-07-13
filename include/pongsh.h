@@ -29,6 +29,9 @@ typedef struct s_data {
 // ---- Shell main loop ----
 void shell_loop(void);
 void display_prompt(void);
+char *get_current_path(void);
+void display_fallback_prompt(void);
+void display_full_prompt(const char *current_path);
 
 // ---- Input handling ----
 char *read_input(void);
@@ -47,6 +50,7 @@ char *my_strdup(const char *str);
 int my_strcmp(const char *s1, const char *s2);
 char *my_strcpy(char *dest, const char *src);
 char *my_strcat(char *dest, const char *src);
+int my_strncmp(const char *s1, const char *s2, int n);
 
 // ---- Memory management functions ----
 void *my_malloc(size_t size);
@@ -62,5 +66,7 @@ char *my_itoa(int value);
     #include "my_cd.h"
     #include "my_pwd.h"
     #include "my_echo.h"
+    #include "my_cat.h"
+    #include "colors.h"
 
 #endif /* PONGSH_H */

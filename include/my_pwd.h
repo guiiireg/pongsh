@@ -12,7 +12,9 @@
 #ifndef MY_PWD_H
     #define MY_PWD_H
 
+    #ifndef _POSIX_C_SOURCE
     #define _POSIX_C_SOURCE 200112L
+    #endif
 
     #include <unistd.h>
     #include <limits.h>

@@ -88,13 +88,45 @@ static int handle_echo_command(const char *command)
     return -1;
 }
 
+static int handle_cat_command(const char *command)
+{
+    if (my_strcmp(command, "cat") == 0) {
+        my_cat(NULL);
+        return 0;
+    }
+    if (my_strlen(command) >= 3 && command[0] == 'c' && command[1] == 'a' &&
+        command[2] == 't') {
+        if (my_strlen(command) == 3) {
+            my_cat(NULL);
+            return 0;
+        }
+        if (command[3] == ' ') {
+            my_cat(command + 4);
+            return 0;
+        }
+        return 0;
+    }
+    return -1;
+}
+
 int execute_command(const char *command)
 {
     if (my_strcmp(command, "exit") == 0) {
+                my_printf("\n%s%s %sGoodbye! Thanks for using %s%sPONGSH%s %s%s%s\n",
+                  SUCCESS_COLOR, HEART, RESET,
+                  BRIGHT_MAGENTA, BOLD, RESET,
+                  SUCCESS_COLOR, STAR, RESET);
+        my_printf("%s%s %sSee you next time! %s%s%s\n\n",
+                  INFO_COLOR, ARROW_RIGHT, RESET,
+                  INFO_COLOR, LIGHTNING, RESET);
         return 1;
     }
     if (my_strcmp(command, "clear") == 0) {
         system("clear");
+                        my_printf("%s%s %sWelcome to %s%sPONGSH%s - A modern shell with cat support %s%s%s\n\n",
+                  INFO_COLOR, TERMINAL, RESET,
+                  BRIGHT_MAGENTA, BOLD, RESET,
+                  SUCCESS_COLOR, STAR, RESET);
         return 0;
     }
     if (handle_ls_command(command) == 0) {
@@ -109,9 +141,14 @@ int execute_command(const char *command)
     if (handle_echo_command(command) == 0) {
         return 0;
     }
+    if (handle_cat_command(command) == 0) {
+        return 0;
+    }
     if (my_strlen(command) == 0) {
         return 0;
     }
-    my_printf("pongsh: command not found: %s\n", command);
+        my_printf("%s%s %spongsh: command not found: %s%s%s\n",
+              ERROR_COLOR, CROSS_MARK, RESET,
+              ERROR_COLOR, command, RESET);
     return 0;
 }

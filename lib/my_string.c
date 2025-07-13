@@ -61,3 +61,17 @@ char *my_strcat(char *dest, const char *src)
     dest[dest_len + i] = '\0';
     return dest;
 }
+
+int my_strncmp(const char *s1, const char *s2, int n)
+{
+    int i = 0;
+
+    while (i < n && s1[i] && s2[i]) {
+        if (s1[i] != s2[i])
+            return s1[i] - s2[i];
+        i++;
+    }
+    if (i < n)
+        return s1[i] - s2[i];
+    return 0;
+}

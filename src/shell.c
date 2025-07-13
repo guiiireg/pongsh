@@ -19,24 +19,20 @@ void display_prompt(void)
 {
     char *current_path;
 
-    current_path = my_malloc(PATH_MAX);
+    current_path = get_current_path();
     if (!current_path) {
-        my_printf("pongsh$ ");
+        display_fallback_prompt();
         return;
     }
-    if (getcwd(current_path, PATH_MAX) == NULL) {
-        my_printf("pongsh$ ");
-        my_free(current_path);
-        return;
-    }
-
-    my_printf("pongsh:%s$ ", current_path);
+    display_full_prompt(current_path);
     my_free(current_path);
 }
 void shell_loop(void)
 {
     char *input;
     int should_exit = 0;
+
+    print_welcome_message();
 
     while (!should_exit) {
         display_prompt();

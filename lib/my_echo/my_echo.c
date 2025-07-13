@@ -17,6 +17,6 @@ int my_echo(const char *args)
         my_printf("\n");
         return 0;
     }
-    my_printf("%s\n", args);
+    my_printf("%s%s%s\n", COMMAND_COLOR, args, RESET);
     return 0;
 }
