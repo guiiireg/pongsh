@@ -38,5 +38,6 @@ int pongsh_cat(char **args);
 int pongsh_help(char **args);
 int pongsh_cd(char **args);
 int pongsh_pwd(char **args);
+int pongsh_clear(char **args);
 
 #endif /* !PONGSH_H_ */

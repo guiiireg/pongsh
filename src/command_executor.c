@@ -12,7 +12,8 @@ static const builtin_t builtins[] = {
     {"ls", &pongsh_ls},
     {"cat", &pongsh_cat},
     {"cd", &pongsh_cd},
-    {"pwd", &pongsh_pwd}
+    {"pwd", &pongsh_pwd},
+    {"clear", &pongsh_clear}
 };
 
 int num_builtins(void)

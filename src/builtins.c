@@ -24,6 +24,7 @@ int pongsh_help(char **args)
     my_printf("  cat <file> - Display file information\n");
     my_printf("  cd <directory> - Change directory\n");
     my_printf("  pwd - Print working directory\n");
+    my_printf("  clear - Clear the terminal screen\n");
     return 1;
 }
 
@@ -51,5 +52,12 @@ int pongsh_cd(char **args)
         my_printf("pongsh: cd: %s: No such file or directory\n", args[1]);
         return 1;
     }
+    return 1;
+}
+
+int pongsh_clear(char **args)
+{
+    (void)args;
+    write(1, "\033[2J\033[H", 7);
     return 1;
 }

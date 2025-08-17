@@ -6,18 +6,23 @@
 // ============================
 #include "../include/pongsh.h"
 
-char **parse_line(char *line)
+static char **allocate_tokens(void)
 {
-    int position = 0;
     char **tokens = malloc(MAX_ARGS * sizeof(char *));
-    int i = 0;
-    int start;
-    int end;
 
     if (!tokens) {
         my_printf("pongsh: allocation error\n");
         exit(1);
     }
+    return tokens;
+}
+
+static void tokenize_line(char *line, char **tokens, int *position)
+{
+    int i = 0;
+    int start;
+    int end;
+
     while (line[i] != '\0') {
         skip_whitespace(line, &i);
         if (line[i] == '\0') {
@@ -25,13 +30,21 @@ char **parse_line(char *line)
         }
         start = i;
         end = find_word_end(line, start);
-        tokens[position] = create_token(line, start, end);
-        position++;
+        tokens[*position] = create_token(line, start, end);
+        (*position)++;
         i = end;
-        if (position >= MAX_ARGS - 1) {
+        if (*position >= MAX_ARGS - 1) {
             break;
         }
     }
+}
+
+char **parse_line(char *line)
+{
+    int position = 0;
+    char **tokens = allocate_tokens();
+
+    tokenize_line(line, tokens, &position);
     tokens[position] = NULL;
     return tokens;
 }
