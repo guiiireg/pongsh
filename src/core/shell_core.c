@@ -20,6 +20,7 @@ int shell_loop(void)
         }
         args = parse_line(line);
         if (args != NULL && args[0] != NULL) {
+            add_to_history(line);
             status = execute_command(args);
         }
         free(line);

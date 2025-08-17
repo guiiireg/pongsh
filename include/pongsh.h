@@ -14,6 +14,7 @@
 
     #define MAX_INPUT_SIZE 1024
     #define MAX_ARGS 64
+    #define MAX_HISTORY 100
     #define PROMPT "pongsh> "
 
 typedef struct {
@@ -39,5 +40,9 @@ int pongsh_help(char **args);
 int pongsh_cd(char **args);
 int pongsh_pwd(char **args);
 int pongsh_clear(char **args);
+int pongsh_history(char **args);
+void add_to_history(char const *command);
+void init_history(void);
+void cleanup_history(void);
 
 #endif /* !PONGSH_H_ */

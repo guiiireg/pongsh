@@ -25,6 +25,7 @@ int pongsh_help(char **args)
     my_printf("  cd <directory> - Change directory\n");
     my_printf("  pwd - Print working directory\n");
     my_printf("  clear - Clear the terminal screen\n");
+    my_printf("  history - Show command history\n");
     return 1;
 }
 

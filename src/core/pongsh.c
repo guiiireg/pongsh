@@ -13,7 +13,12 @@ int main(void)
 
 int pongsh_main(void)
 {
+    int result;
+
     my_printf("Welcome to pongsh - A simple shell\n");
     my_printf("Type 'help' for available commands\n\n");
-    return shell_loop();
+    init_history();
+    result = shell_loop();
+    cleanup_history();
+    return result;
 }
