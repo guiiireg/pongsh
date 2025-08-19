@@ -12,9 +12,7 @@ static int history_start = 0;
 
 void init_history(void)
 {
-    int i;
-
-    for (i = 0; i < MAX_HISTORY; i++) {
+    for (int i = 0; i < MAX_HISTORY; i++) {
         history[i] = NULL;
     }
     history_count = 0;
@@ -25,7 +23,6 @@ void add_to_history(char const *command)
 {
     char *cmd_copy;
     int cmd_len;
-    int i;
     int insert_pos;
 
     if (command == NULL || my_strlen(command) == 0) {
@@ -36,7 +33,7 @@ void add_to_history(char const *command)
     if (!cmd_copy) {
         return;
     }
-    for (i = 0; i < cmd_len; i++) {
+    for (int i = 0; i < cmd_len; i++) {
         cmd_copy[i] = command[i];
     }
     cmd_copy[cmd_len] = '\0';
@@ -55,9 +52,7 @@ void add_to_history(char const *command)
 
 void cleanup_history(void)
 {
-    int i;
-
-    for (i = 0; i < MAX_HISTORY; i++) {
+    for (int i = 0; i < MAX_HISTORY; i++) {
         if (history[i] != NULL) {
             free(history[i]);
             history[i] = NULL;
@@ -69,7 +64,6 @@ void cleanup_history(void)
 
 int pongsh_history(char **args)
 {
-    int i;
     int index;
     int num_to_show = history_count;
 
@@ -78,7 +72,7 @@ int pongsh_history(char **args)
         my_printf("No commands in history\n");
         return 1;
     }
-    for (i = 0; i < num_to_show; i++) {
+    for (int i = 0; i < num_to_show; i++) {
         if (history_count < MAX_HISTORY) {
             index = i;
         } else {

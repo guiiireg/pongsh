@@ -26,6 +26,9 @@ int pongsh_help(char **args)
     my_printf("  pwd - Print working directory\n");
     my_printf("  clear - Clear the terminal screen\n");
     my_printf("  history - Show command history\n");
+    my_printf("  echo [args...] - Display text\n");
+    my_printf("  env - Show environment variables\n");
+    my_printf("  which <command> - Locate a command\n");
     return 1;
 }
 

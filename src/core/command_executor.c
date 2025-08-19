@@ -14,7 +14,10 @@ static const builtin_t builtins[] = {
     {"cd", &pongsh_cd},
     {"pwd", &pongsh_pwd},
     {"clear", &pongsh_clear},
-    {"history", &pongsh_history}
+    {"history", &pongsh_history},
+    {"echo", &pongsh_echo},
+    {"env", &pongsh_env},
+    {"which", &pongsh_which}
 };
 
 int num_builtins(void)
@@ -36,9 +39,7 @@ int execute_command(char **args)
 
 int is_builtin(char *command)
 {
-    int i;
-
-    for (i = 0; i < num_builtins(); i++) {
+    for (int i = 0; i < num_builtins(); i++) {
         if (my_strcmp(command, builtins[i].name) == 0) {
             return 1;
         }
@@ -48,9 +49,7 @@ int is_builtin(char *command)
 
 int call_builtin(char **args)
 {
-    int i;
-
-    for (i = 0; i < num_builtins(); i++) {
+    for (int i = 0; i < num_builtins(); i++) {
         if (my_strcmp(args[0], builtins[i].name) == 0) {
             return builtins[i].func(args);
         }
