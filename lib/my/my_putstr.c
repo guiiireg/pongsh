@@ -1,18 +1,14 @@
-// ============================
-//        MY_PUTSTR
-// ============================
-// Made by Guireg on 17/08/2025
-// Last update: 17/08/2025
-// ============================
 #include "../../include/my.h"
 
-int my_putstr(char const *str)
+int my_putstr(const char *str)
 {
-    int i = 0;
-
-    while (str[i] != '\0') {
+    for (int i = 0; str[i] != '\0'; i++) {
         my_putchar(str[i]);
-        i++;
     }
     return 0;
+}
+
+int main(void)
+{
+    my_putstr("Hello world");
 }
