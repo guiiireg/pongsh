@@ -1,10 +1,4 @@
-// ============================
-//        MY_PUTCHAR
-// ============================
-// Made by Guireg on 17/08/2025
-// Last update: 17/08/2025
-// ============================
-#include "../../include/my.h"
+#include <unistd.h>
 
 void my_putchar(char c)
 {
