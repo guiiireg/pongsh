@@ -1,17 +1,9 @@
-// ============================
-//        MY_STRLEN
-// ============================
-// Made by Guireg on 17/08/2025
-// Last update: 17/08/2025
-// ============================
-#include "../../include/my.h"
-
-int my_strlen(char const *str)
+int my_strlen(const char *str)
 {
-    int i = 0;
+    int len = 0;
 
-    while (str[i] != '\0') {
-        i++;
+    for (int i = 0; str[i] != '\0'; i++) {
+        len++;
     }
-    return i;
+    return len;
 }
