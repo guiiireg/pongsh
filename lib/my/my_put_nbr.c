@@ -14,10 +14,3 @@ int my_put_nbr(int nb)
     my_putchar((nbr % 10) + '0');
     return 0;
 }
-
-int main(void)
-{
-    my_put_nbr(42);
-    my_put_nbr(-42);
-}
-
