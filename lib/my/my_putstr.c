@@ -7,8 +7,3 @@ int my_putstr(const char *str)
     }
     return 0;
 }
-
-int main(void)
-{
-    my_putstr("Hello world");
-}
