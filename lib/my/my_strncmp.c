@@ -1,3 +1,7 @@
+/**
+ * Compares up to n characters of two strings.
+ * Returns the difference between the first characters that differ.
+ */
 int my_strncmp(const char *s1, const char *s2, int n)
 {
     int i = 0;
