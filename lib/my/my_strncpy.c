@@ -1,3 +1,8 @@
+/**
+ * Copies up to n characters from the source string into the destination.
+ * Fills the remaining space with null characters if needed.
+ * Returns the destination string.
+ */
 char *my_strncpy(char *dest, const char *src, int n)
 {
     int i = 0;
