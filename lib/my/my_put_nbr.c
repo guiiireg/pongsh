@@ -1,5 +1,8 @@
 #include "../../include/my.h"
 
+/**
+ * Displays an integer on the standard output.
+ */ 
 int my_put_nbr(int nb)
 {
     long nbr = nb;
