@@ -1,5 +1,9 @@
 #include "../../include/my.h"
 
+/**
+ * Returns the first prime number greater than or equal to nb.
+ * Returns 0 if no prime can be found within the integer range.
+ */
 int my_find_prime_sup(int nb)
 {
     if (nb <= 2)
