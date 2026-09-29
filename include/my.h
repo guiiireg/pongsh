@@ -19,5 +19,6 @@ char *my_revstr(char *str);
 char *my_strstr(char *str, const char *to_find);
 int my_strcmp(const char *s1, const char *s2);
 int my_strncmp(const char *s1, const char *s2, int n);
+char *my_strupcase(char *str);
 
 #endif // MY_H_
