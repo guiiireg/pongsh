@@ -7,5 +7,6 @@ void my_swap(int *a, int *b);
 int my_put_nbr(int nb);
 int my_putstr(const char *str);
 int my_strlen(const char *str);
+int my_getnbr(const char *str);
 
 #endif // MY_H_
