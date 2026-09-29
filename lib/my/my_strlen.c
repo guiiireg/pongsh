@@ -1,3 +1,6 @@
+/**
+ * Returns the length of a string, excluding the null terminator.
+ */
 int my_strlen(const char *str)
 {
     int len = 0;
