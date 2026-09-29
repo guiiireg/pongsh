@@ -1,3 +1,7 @@
+/**
+ * Returns the integer square root of nb if it's a perfect square.
+ * Returns 0 if nb has no integer square root.
+ */
 int my_compute_square_root(int nb)
 {
     int i;
