@@ -1,3 +1,7 @@
+/**
+ * Checks whether nb is a prime number.
+ * Returns 1 if nb is prime, otherwise returns 0.
+ */ 
 int my_is_prime(int nb)
 {
     int i;
