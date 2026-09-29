@@ -18,5 +18,6 @@ char *my_strncpy(char *dest, const char *src, int n);
 char *my_revstr(char *str);
 char *my_strstr(char *str, const char *to_find);
 int my_strcmp(const char *s1, const char *s2);
+int my_strncmp(const char *s1, const char *s2, int n);
 
 #endif // MY_H_
