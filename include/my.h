@@ -16,5 +16,6 @@ int my_find_prime_sup(int nb);
 char *my_strcpy(char *dest, const char *src);
 char *my_strncpy(char *dest, const char *src, int n);
 char *my_revstr(char *str);
+char *my_strstr(char *str, const char *to_find);
 
 #endif // MY_H_
