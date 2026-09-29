@@ -1,5 +1,9 @@
 #include <stddef.h>
 
+/**
+ * Searches for the first occurence of to_find in str.
+ * Returns a pointer to the matching substring, or NULL if not found.
+ */
 char *my_strstr(char *str, const char *to_find)
 {
     int i = 0;
