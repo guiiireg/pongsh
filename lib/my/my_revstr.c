@@ -1,3 +1,7 @@
+/**
+ * Reverses a string in place.
+ * Returns the reversed string.
+ */ 
 char *my_revstr(char *str)
 {
     int i = 0;
