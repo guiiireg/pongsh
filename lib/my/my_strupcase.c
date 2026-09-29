@@ -1,3 +1,7 @@
+/**
+ * Converts lowercase letters in a string to uppercase.
+ * Returns the modified string.
+ */
 char *my_strupcase(char *str)
 {
     int i = 0;
