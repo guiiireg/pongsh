@@ -1,5 +1,8 @@
 #include "../../include/my.h"
 
+/**
+ * Convers a string to an integer and returns 0 on overflow.
+ */
 int my_getnbr(const char *str)
 {
     int i = 0;
