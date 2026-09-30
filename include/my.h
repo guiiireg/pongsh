@@ -1,5 +1,5 @@
 #ifndef MY_H_
-    #define MY_H_
+#define MY_H_
 
 void my_putchar(char c);
 int my_isneg(int nb);
@@ -22,5 +22,6 @@ int my_strncmp(const char *s1, const char *s2, int n);
 char *my_strupcase(char *str);
 int my_str_isalpha(const char *str);
 char *my_str_capitalize(char *str);
+int my_str_isnum(const char *str);
 
 #endif // MY_H_
