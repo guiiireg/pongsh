@@ -26,5 +26,6 @@ int my_str_isnum(const char *str);
 int my_str_islower(const char *str);
 int my_str_isupper(const char *str);
 int my_str_isprintable(const char *str);
+char *my_strcat(char *dest, const char *str);
 
 #endif // MY_H_
