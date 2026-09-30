@@ -21,5 +21,6 @@ int my_strcmp(const char *s1, const char *s2);
 int my_strncmp(const char *s1, const char *s2, int n);
 char *my_strupcase(char *str);
 int my_str_isalpha(const char *str);
+char *my_str_capitalize(char *str);
 
 #endif // MY_H_
