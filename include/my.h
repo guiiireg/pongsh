@@ -24,5 +24,6 @@ int my_str_isalpha(const char *str);
 char *my_str_capitalize(char *str);
 int my_str_isnum(const char *str);
 int my_str_islower(const char *str);
+int my_str_isupper(const char *str);
 
 #endif // MY_H_
