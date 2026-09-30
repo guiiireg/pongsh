@@ -2,18 +2,17 @@
 
 /**
  * Displays an integer on the standard output.
- */ 
-int my_put_nbr(int nb)
-{
-    long nbr = nb;
+ */
+int my_put_nbr(int nb) {
+  long nbr = nb;
 
-    if (nbr < 0) {
-        my_putchar('-');
-        nbr = -nbr;
-    }
-    if (nbr >= 10) {
-        my_put_nbr(nbr / 10);
-    }
-    my_putchar((nbr % 10) + '0');
-    return 0;
+  if (nbr < 0) {
+    my_putchar('-');
+    nbr = -nbr;
+  }
+  if (nbr >= 10) {
+    my_put_nbr(nbr / 10);
+  }
+  my_putchar((nbr % 10) + '0');
+  return 0;
 }

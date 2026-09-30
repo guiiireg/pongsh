@@ -4,23 +4,22 @@
  * Searches for the first occurence of to_find in str.
  * Returns a pointer to the matching substring, or NULL if not found.
  */
-char *my_strstr(char *str, const char *to_find)
-{
-    int i = 0;
-    int j;
+char *my_strstr(char *str, const char *to_find) {
+  int i = 0;
+  int j;
 
-    if (to_find[0] == '\0') {
-        return str;
+  if (to_find[0] == '\0') {
+    return str;
+  }
+  while (str[i] != '\0') {
+    j = 0;
+    while (to_find[j] != '\0' && str[i + j] == to_find[j]) {
+      j++;
     }
-    while (str[i] != '\0') {
-        j = 0;
-        while (to_find[j] != '\0' && str[i + j] == to_find[j]) {
-            j++;
-        }
-        if (to_find[j] == '\0') {
-            return &str[i];
-        }
-        i++;
+    if (to_find[j] == '\0') {
+      return &str[i];
     }
-    return NULL;
+    i++;
+  }
+  return NULL;
 }

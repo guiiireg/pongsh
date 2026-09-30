@@ -1,12 +1,11 @@
 /**
  * Returns the length of a string, excluding the null terminator.
  */
-int my_strlen(const char *str)
-{
-    int len = 0;
+int my_strlen(const char *str) {
+  int len = 0;
 
-    for (int i = 0; str[i] != '\0'; i++) {
-        len++;
-    }
-    return len;
+  for (int i = 0; str[i] != '\0'; i++) {
+    len++;
+  }
+  return len;
 }
