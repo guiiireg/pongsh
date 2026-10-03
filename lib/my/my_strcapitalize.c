@@ -1,3 +1,5 @@
+#include "../../include/my.h"
+
 /**
  * Checks whether c is an alphanumeric character.
  * Returns 1 if c is alphanumeric, otherwise returns 0.
@@ -15,9 +17,11 @@ static int is_alphanumeric(char c) {
  * Converts any subsequent letters of each word to lowercase.
  * Returns the modified string.
  */
-char *my_str_capitalize(char *str) {
+char *my_strcapitalize(char *str) {
   int i = 0;
 
+  if (str == 0)
+    return 0;
   while (str[i] != '\0') {
     if (str[i] >= 'a' && str[i] <= 'z') {
       if (i == 0 || !is_alphanumeric(str[i - 1]))
