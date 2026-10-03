@@ -23,14 +23,21 @@ TEST_BIN    := unit_tests
 
 # Répertoires
 LIB_DIR     := lib/my
+PRINTF_DIR  := lib/my_printf
 TESTS_DIR   := tests
 OBJ_DIR     := obj
 LIB_OBJ_DIR := $(OBJ_DIR)/lib/my
+PRINTF_OBJ_DIR := $(OBJ_DIR)/lib/my_printf
 TEST_OBJ_DIR:= $(OBJ_DIR)/tests
 
 # Fichiers sources et objets
 SRCS        := $(sort $(wildcard $(LIB_DIR)/*.c))
+PRINTF_SRCS := $(sort $(wildcard $(PRINTF_DIR)/*.c))
+ALL_SRCS    := $(SRCS) $(PRINTF_SRCS)
+
 OBJS        := $(SRCS:$(LIB_DIR)/%.c=$(LIB_OBJ_DIR)/%.o)
+PRINTF_OBJS := $(PRINTF_SRCS:$(PRINTF_DIR)/%.c=$(PRINTF_OBJ_DIR)/%.o)
+ALL_OBJS    := $(OBJS) $(PRINTF_OBJS)
 
 TEST_SRCS   := $(sort $(wildcard $(TESTS_DIR)/*.c))
 TEST_OBJS   := $(TEST_SRCS:$(TESTS_DIR)/%.c=$(TEST_OBJ_DIR)/%.o)
@@ -48,10 +55,10 @@ C_MAGENTA   := \033[1;35m
 all: $(NAME)
 
 # Règle de création de la bibliothèque statique
-$(NAME): $(OBJS)
-	@rm -f $(OBJ_DIR)/.lib_header_printed
+$(NAME): $(ALL_OBJS)
+	@rm -f $(OBJ_DIR)/.lib_header_printed $(OBJ_DIR)/.printf_header_printed
 	@printf "$(C_BLUE)[📦]$(C_RESET) Création de l'archive $(C_BOLD)$@$(C_RESET)...\r"
-	@$(AR) $(ARFLAGS) $@ $(OBJS)
+	@$(AR) $(ARFLAGS) $@ $(ALL_OBJS)
 	@printf "\r\033[K$(C_GREEN)[✔]$(C_RESET) Bibliothèque $(C_BOLD)$@$(C_RESET) créée avec succès !\n"
 
 # Compilation des objets de libmy
@@ -59,6 +66,16 @@ $(LIB_OBJ_DIR)/%.o: $(LIB_DIR)/%.c | $(LIB_OBJ_DIR)
 	@if [ ! -f $(OBJ_DIR)/.lib_header_printed ]; then \
 		touch $(OBJ_DIR)/.lib_header_printed; \
 		printf "$(C_CYAN)[📁] Dossier: $(LIB_DIR)/$(C_RESET)\n"; \
+	fi
+	@printf "$(C_YELLOW)  [⏳]$(C_RESET) %s\r" "$<"
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	@printf "\r\033[K$(C_GREEN)  [✔]$(C_RESET) %s\n" "$<"
+
+# Compilation des objets de lib/my_printf
+$(PRINTF_OBJ_DIR)/%.o: $(PRINTF_DIR)/%.c | $(PRINTF_OBJ_DIR)
+	@if [ ! -f $(OBJ_DIR)/.printf_header_printed ]; then \
+		touch $(OBJ_DIR)/.printf_header_printed; \
+		printf "$(C_CYAN)[📁] Dossier: $(PRINTF_DIR)/$(C_RESET)\n"; \
 	fi
 	@printf "$(C_YELLOW)  [⏳]$(C_RESET) %s\r" "$<"
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
@@ -88,6 +105,9 @@ tests_run: $(TEST_BIN)
 
 # Création des dossiers d'objets
 $(LIB_OBJ_DIR):
+	@mkdir -p $@
+
+$(PRINTF_OBJ_DIR):
 	@mkdir -p $@
 
 $(TEST_OBJ_DIR):
