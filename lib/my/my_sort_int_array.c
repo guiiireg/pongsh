@@ -11,7 +11,9 @@ static void bubble_pass(int *tab, int size) {
  * Sorts an integer array in ascending order.
  */
 void my_sort_int_array(int *tab, int size) {
+  if (tab == 0 || size <= 1)
+    return;
   for (int i = 0; i < size - 1; i++) {
-    bubble_pass(tab, size - 1);
+    bubble_pass(tab, size - i);
   }
 }
