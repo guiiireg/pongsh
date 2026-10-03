@@ -1,0 +1,22 @@
+name: PongSH CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Compilation de la bibliothèque
+        run: make
+
+      - name: Exécution des tests unitaires Criterion
+        run: make tests_run
+
+      - name: Analyse des fuites mémoire (Valgrind)
+        run: valgrind --leak-check=full --error-exitcode=1 ./unit_tests
