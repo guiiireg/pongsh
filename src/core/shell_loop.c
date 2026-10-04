@@ -16,6 +16,7 @@ static void handle_input(char *line, ssize_t len)
     argv = split_words(line);
     if (argv == NULL)
         return;
+    exec_command(argv);
     free_word_array(argv);
 }
 

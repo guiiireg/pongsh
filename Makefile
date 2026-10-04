@@ -9,7 +9,8 @@ SRC	=	src/main.c \
 		src/core/shell_loop.c \
 		src/lib/is_empty_line.c \
 		src/lib/free_word_array.c \
-		src/parsing/split_words.c
+		src/parsing/split_words.c \
+		src/execution/exec_command.c
 
 OBJ	=	$(SRC:.c=.o)
 
