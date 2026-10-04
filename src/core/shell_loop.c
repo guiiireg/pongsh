@@ -8,9 +8,15 @@ static void strip_newline(char *str, ssize_t len)
 
 static void handle_input(char *line, ssize_t len)
 {
+    char **argv = NULL;
+
     strip_newline(line, len);
     if (is_empty_line(line))
         return;
+    argv = split_words(line);
+    if (argv == NULL)
+        return;
+    free_word_array(argv);
 }
 
 int shell_loop(void)
