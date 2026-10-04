@@ -6,7 +6,8 @@ CFLAGS	=	-Wall -Wextra -Werror -I./include
 
 SRC	=	src/main.c \
 		src/core/prompt.c \
-		src/core/shell_loop.c
+		src/core/shell_loop.c \
+		src/lib/is_empty_line.c
 
 OBJ	=	$(SRC:.c=.o)
 
