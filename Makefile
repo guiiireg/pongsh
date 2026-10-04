@@ -26,7 +26,8 @@ TEST_SRC	=	src/core/prompt.c \
 			src/builtins/builtin_cd.c \
 			tests/test_is_empty_line.c \
 			tests/test_split_words.c \
-			tests/test_builtins.c
+			tests/test_builtins.c \
+			tests/test_builtin_cd.c
 
 OBJ	=	$(SRC:.c=.o)
 
