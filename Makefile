@@ -4,7 +4,9 @@ CC	=	gcc
 
 CFLAGS	=	-Wall -Wextra -Werror -I./include
 
-SRC	=	src/main.c
+SRC	=	src/main.c \
+		src/core/prompt.c \
+		src/core/shell_loop.c
 
 OBJ	=	$(SRC:.c=.o)
 
