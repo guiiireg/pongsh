@@ -1,6 +1,21 @@
+# Binaries and libraries
 pongsh
+*.a
+unit_tests
+
+# Objects and build artifacts
 obj/
-libmy.a
+*.o
+*.gcda
+*.gcno
+
+# Backup and editor files
+*~
+#*#
+.#*
 .vscode/
+
+# Debug and memory reports
+vgcore.*
 coding-style-reports.log
 AGENTS.md
