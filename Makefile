@@ -13,7 +13,8 @@ SRC	=	src/main.c \
 		src/lib/free_word_array.c \
 		src/parsing/split_words.c \
 		src/execution/exec_command.c \
-		src/builtins/builtin_exit.c
+		src/builtins/builtin_exit.c \
+		src/builtins/builtin_cd.c
 
 TEST_SRC	=	src/core/prompt.c \
 			src/core/shell_loop.c \
@@ -22,6 +23,7 @@ TEST_SRC	=	src/core/prompt.c \
 			src/parsing/split_words.c \
 			src/execution/exec_command.c \
 			src/builtins/builtin_exit.c \
+			src/builtins/builtin_cd.c \
 			tests/test_is_empty_line.c \
 			tests/test_split_words.c \
 			tests/test_builtins.c

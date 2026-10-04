@@ -38,5 +38,7 @@ int check_builtins(shell_t *shell, char **argv)
 {
     if (strcmp(argv[0], "exit") == 0)
         return (builtin_exit(shell, argv));
+    if (strcmp(argv[0], "cd") == 0)
+        return (builtin_cd(shell, argv));
     return (-1);
 }

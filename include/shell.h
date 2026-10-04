@@ -25,6 +25,7 @@ char **split_words(const char *str);
 void free_word_array(char **array);
 int exec_command(char **argv);
 int builtin_exit(shell_t *shell, char **argv);
+int builtin_cd(shell_t *shell, char **argv);
 int check_builtins(shell_t *shell, char **argv);
 
 #endif /* !SHELL_H_ */
