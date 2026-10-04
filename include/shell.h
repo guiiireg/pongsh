@@ -5,6 +5,7 @@
     #include <stdlib.h>
     #include <stdio.h>
     #include <string.h>
+    #include <signal.h>
     #include <sys/types.h>
     #include <sys/wait.h>
 
@@ -27,5 +28,7 @@ int exec_command(char **argv);
 int builtin_exit(shell_t *shell, char **argv);
 int builtin_cd(shell_t *shell, char **argv);
 int check_builtins(shell_t *shell, char **argv);
+void setup_parent_signals(void);
+void restore_child_signals(void);
 
 #endif /* !SHELL_H_ */

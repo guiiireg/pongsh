@@ -28,6 +28,7 @@ int shell_loop(void)
     size_t len = 0;
     ssize_t read_bytes = 0;
 
+    setup_parent_signals();
     display_prompt();
     read_bytes = getline(&line, &len, stdin);
     while (shell.is_running && read_bytes != -1) {

@@ -2,6 +2,7 @@
 
 static void run_child(char **argv)
 {
+    restore_child_signals();
     execvp(argv[0], argv);
     perror(argv[0]);
     exit(127);
