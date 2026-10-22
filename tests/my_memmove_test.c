@@ -16,7 +16,7 @@ Test(my_memmove, handles_forward_overlap)
     char buf[16] = "0123456789";
 
     my_memmove(buf + 2, buf, 8);
-    cr_assert_str_eq(buf, "010123456789");
+    cr_assert_str_eq(buf, "0101234567");
 }
 
 Test(my_memmove, handles_backward_overlap)

@@ -8,8 +8,8 @@ Test(my_memcmp, equal_buffers_return_zero)
 
 Test(my_memcmp, difference_returns_correct_sign)
 {
-    cr_assert_lt(my_memcmp("abcxyz", "abcdef", 6), 0);
-    cr_assert_gt(my_memcmp("abcdef", "abcxyz", 6), 0);
+    cr_assert_gt(my_memcmp("abcxyz", "abcdef", 6), 0);
+    cr_assert_lt(my_memcmp("abcdef", "abcxyz", 6), 0);
 }
 
 Test(my_memcmp, difference_after_n_is_ignored)
