@@ -12,13 +12,22 @@ jobs:
       - name: Install build tools and valgrind
         run: |
           sudo apt-get update
-          sudo apt-get install -y valgrind meson ninja-build
+          sudo apt-get install -y --no-install-recommends valgrind meson ninja-build
+
+      - name: Cache criterion build
+        uses: actions/cache@v4
+        with:
+          path: /tmp/criterion
+          key: criterion-v2.4.2
 
       - name: Build and install criterion
         run: |
-          git clone --recursive https://github.com/Snaipe/Criterion.git /tmp/criterion
-          meson setup /tmp/criterion/build /tmp/criterion
-          ninja -C /tmp/criterion/build
+          if [ ! -d /tmp/criterion ]; then
+            git clone --depth 1 --branch v2.4.2 --recurse-submodules --shallow-submodules \
+              https://github.com/Snaipe/Criterion.git /tmp/criterion
+            meson setup /tmp/criterion/build /tmp/criterion
+            ninja -C /tmp/criterion/build
+          fi
           sudo ninja -C /tmp/criterion/build install
           sudo ldconfig
 
