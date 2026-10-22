@@ -1,0 +1,16 @@
+# Compiled objects
+obj/
+libmy.a
+
+# Test executables
+tests/test_my
+
+# Editor/IDE files
+*.swp
+*.swo
+*~
+.*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
