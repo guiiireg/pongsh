@@ -7,5 +7,6 @@ int my_strlen(const char *str);
 char *my_strcpy(char *dest, const char *src);
 char *my_strdup(const char *s);
 int my_put_nbr(int n);
+int my_strcmp(const char *s1, const char *s2);
 
 #endif /* MY_H_ */
