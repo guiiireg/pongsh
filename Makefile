@@ -33,6 +33,6 @@ fclean:		clean
 		rm -f $(NAME) $(TESTS_BIN)
 
 re:		fclean
-		all
+		+@"$(MAKE)" all
 
 .PHONY:		all clean fclean re tests_run
