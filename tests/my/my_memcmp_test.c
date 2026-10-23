@@ -1,5 +1,5 @@
 #include <criterion/criterion.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 Test(my_memcmp, equal_buffers_return_zero)
 {

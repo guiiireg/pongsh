@@ -4,33 +4,42 @@
 
 CC	= gcc
 AR	= ar
-CFLAGS	= -Wall -Wextra -Werror -std=c99
+CFLAGS	= -Wall -Wextra -Werror -std=c99 -Iinclude -Isrc
 ARFLAGS	= rc
 
-NAME	= libmy.a
+BUILD		= build
+OBJ_DIR		= $(BUILD)/obj
 
-SRC	= $(wildcard lib/my/*.c) $(wildcard lib/my_printf/*.c)
-OBJ	= $(SRC:.c=.o)
+MY_SRC		= $(wildcard src/my/*.c)
+MY_PRINTF_SRC	= $(wildcard src/my_printf/*.c)
+TESTS_SRC	= $(wildcard tests/my/*.c) $(wildcard tests/my_printf/*.c)
 
-TESTS_SRC	= $(wildcard tests/*.c) $(wildcard tests/my_printf/*.c)
-TESTS_BIN	= tests_libmy
+MY_OBJ		= $(MY_SRC:src/%.c=$(OBJ_DIR)/%.o)
+MY_PRINTF_OBJ	= $(MY_PRINTF_SRC:src/%.c=$(OBJ_DIR)/%.o)
 
-all:		$(NAME)
+LIBMY		= $(BUILD)/libmy.a
+LIBMY_PRINTF	= $(BUILD)/libmy_printf.a
+TESTS_BIN	= $(BUILD)/tests_libmy
 
-$(NAME):	$(OBJ)
+all:		$(LIBMY) $(LIBMY_PRINTF)
+
+$(LIBMY):	$(MY_OBJ)
 		$(AR) $(ARFLAGS) $@ $^
 
-%.o:		%.c
+$(LIBMY_PRINTF):	$(MY_PRINTF_OBJ)
+		$(AR) $(ARFLAGS) $@ $^
+
+$(OBJ_DIR)/%.o:	src/%.c
+		mkdir -p $(dir $@)
 		$(CC) $(CFLAGS) -c $< -o $@
 
 tests_run:	re
-		$(CC) $(CFLAGS) $(TESTS_SRC) -L. -lmy -lcriterion -o $(TESTS_BIN)
+		$(CC) $(CFLAGS) $(TESTS_SRC) -L$(BUILD) -lmy_printf -lmy -lcriterion -o $(TESTS_BIN)
 
 clean:
-		rm -f $(OBJ)
+		rm -rf $(BUILD)
 
 fclean:		clean
-		rm -f $(NAME) $(TESTS_BIN)
 
 re:		fclean
 		+@"$(MAKE)" all

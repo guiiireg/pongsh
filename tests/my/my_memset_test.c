@@ -1,5 +1,5 @@
 #include <criterion/criterion.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 Test(my_memset, fills_buffer_with_byte)
 {

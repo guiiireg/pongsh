@@ -2,7 +2,7 @@
 #include <criterion/redirect.h>
 #include <limits.h>
 #include <stdio.h>
-#include "../../include/my_printf.h"
+#include "my_printf/my_printf.h"
 Test(my_printf, writes_plain_text)
 {
     char got[64] = {0};

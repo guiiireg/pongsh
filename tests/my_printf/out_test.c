@@ -2,8 +2,8 @@
 #include <criterion/redirect.h>
 #include <stdio.h>
 #include <string.h>
-#include "../../include/my.h"
-#include "../../lib/my_printf/out.h"
+#include "my/my.h"
+#include "my_printf/internal/out.h"
 
 Test(out, init_allocates_empty_buffer)
 {

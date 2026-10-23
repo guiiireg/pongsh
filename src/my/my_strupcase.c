@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 /**
  * @brief Uppercase every letter of a string in place.

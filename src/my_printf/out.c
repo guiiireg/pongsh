@@ -1,5 +1,5 @@
-#include "out.h"
-#include "../../include/my.h"
+#include "internal/out.h"
+#include "my/my.h"
 #include <stdlib.h>
 #include <unistd.h>
 

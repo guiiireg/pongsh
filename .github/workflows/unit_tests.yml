@@ -42,10 +42,10 @@ jobs:
         run: make tests_run
 
       - name: Run criterion unit tests
-        run: ./tests_libmy
+        run: ./build/tests_libmy
 
       - name: Run tests under valgrind
         run: |
           valgrind --leak-check=full --show-leak-kinds=definite \
             --errors-for-leak-kinds=definite --error-exitcode=1 \
-            --trace-children=yes ./tests_libmy
+            --trace-children=yes ./build/tests_libmy

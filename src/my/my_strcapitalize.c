@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 static int is_letter(char c)
 {

@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 /**
  * @brief Swap the values of two integers.

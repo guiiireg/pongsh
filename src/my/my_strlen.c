@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 /**
  * @brief Compute the length of a null-terminated string.

@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 /**
  * @brief Append at most n characters of a string to another.

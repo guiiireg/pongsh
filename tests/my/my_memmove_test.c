@@ -1,6 +1,6 @@
 #include <criterion/criterion.h>
 #include <string.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 Test(my_memmove, copies_without_overlap)
 {

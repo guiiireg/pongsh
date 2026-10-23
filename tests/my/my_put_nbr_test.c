@@ -1,7 +1,7 @@
 #include <criterion/criterion.h>
 #include <criterion/redirect.h>
 #include <limits.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 static void redirect_all_stdout(void)
 {

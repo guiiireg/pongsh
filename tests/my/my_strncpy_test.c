@@ -1,5 +1,5 @@
 #include <criterion/criterion.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 Test(my_strncpy, copies_at_most_n_chars_without_terminating)
 {

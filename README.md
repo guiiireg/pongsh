@@ -72,12 +72,12 @@ Every implemented function ships with Criterion unit tests covering normal and e
 Requires `gcc` (or any C99 compiler). Tests additionally require [Criterion](https://github.com/Snaipe/Criterion).
 
 ```bash
-make              # build libmy.a
-make tests_run    # clean rebuild, then compile the test binary
-./tests_libmy     # run the Criterion test suite
-make clean        # remove object files
-make fclean       # clean + remove libmy.a and the test binary
-make re           # full rebuild
+make                    # build build/libmy.a + build/libmy_printf.a
+make tests_run          # clean rebuild, then compile the test binary
+./build/tests_libmy     # run the Criterion test suite
+make clean              # remove everything generated (rm -rf build)
+make fclean             # same as clean
+make re                 # full rebuild
 ```
 
 Link against the library in your own code:
@@ -99,7 +99,7 @@ int main(void)
 ```
 
 ```bash
-gcc main.c -Iinclude -L. -lmy -o hello
+gcc main.c -Iinclude -Lbuild -lmy_printf -lmy -o hello
 ```
 
 ## Technical constraints
@@ -118,25 +118,43 @@ gcc main.c -Iinclude -L. -lmy -o hello
 ### Module layout
 
 ```
-lib/
-├── my/          core libc — strings, memory, basic output
-└── my_printf/   formatted output (in progress), layered on top of my/
+include/                        public contract — mirror of src/
+├── my/my.h
+└── my_printf/my_printf.h
+src/                            one directory per module
+├── my/                         core libc — strings, memory, basic output
+└── my_printf/                  formatted output (in progress), layered on top of my/
+    └── internal/               private headers, never included from outside
+tests/                          mirror of src/
+├── my/
+└── my_printf/
+build/                          generated artifacts, gitignored — wiped by make clean
+├── libmy.a
+├── libmy_printf.a
+└── tests_libmy
 ```
 
-Each module gets its own directory and its own archive (`libmy.a`, `libmyprintf.a`, ...) so the frozen, fully tested core never mixes with the layers built on top of it.
+Each module builds its own archive so the frozen, fully tested core never mixes with the layers built on top of it. Public headers are cited project-prefixed (`#include "my/my.h"`), private headers live in `src/<module>/internal/` and are included downward (`#include "internal/conv.h"`), never through a climbing `../` path.
 
-Current state — a static library, fully tested:
+Current state:
 
 ```
-lib/my/*.c ──► libmy.a ◄── include/my.h
-                  │
-                  └──► tests/*.c (Criterion) ──► tests_libmy
+include/my/my.h ────────────┐
+                             ▼
+src/my/*.c ──────────► build/libmy.a
+                             ▲
+include/my_printf/my_printf.h │
+                             ▼
+src/my_printf/*.c ──► build/libmy_printf.a
+                             │
+tests/my/*.c ────────┐        │
+tests/my_printf/*.c └──► build/tests_libmy   (links -lmy_printf -lmy)
 ```
 
 Target state — the shell pipeline this library is building toward:
 
 ```
-        libmy.a
+   libmy.a / libmy_printf.a
            │
    ┌───────▼────────────────────────┐
    │ REPL                             │

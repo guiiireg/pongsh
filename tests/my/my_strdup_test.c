@@ -1,6 +1,6 @@
 #include <criterion/criterion.h>
 #include <stdlib.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 Test(my_strdup, duplicates_string)
 {

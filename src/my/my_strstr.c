@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 static int starts_with(const char *str, const char *prefix)
 {

@@ -1,2 +1,5 @@
 .vibe/
 .vscode/
+build/
+*.o
+*.a

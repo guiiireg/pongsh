@@ -1,4 +1,4 @@
-#include "../../include/my.h"
+#include "my/my.h"
 
 static void print_digits(long long value)
 {

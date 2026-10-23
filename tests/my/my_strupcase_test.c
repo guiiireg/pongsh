@@ -1,5 +1,5 @@
 #include <criterion/criterion.h>
-#include "../include/my.h"
+#include "my/my.h"
 
 Test(my_strupcase, uppercases_mixed_string)
 {

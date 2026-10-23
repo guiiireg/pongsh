@@ -1,6 +1,6 @@
-#include "../../include/my_printf.h"
-#include "conv.h"
-#include "out.h"
+#include "my_printf/my_printf.h"
+#include "internal/conv.h"
+#include "internal/out.h"
 #include <stdarg.h>
 
 /**
