@@ -12,8 +12,6 @@ typedef struct out_ctx_s {
 
 void out_init(out_ctx_t *ctx);
 void out_putchar(out_ctx_t *ctx, char c);
-void out_putstr(out_ctx_t *ctx, const char *str);
 void out_flush(out_ctx_t *ctx);
-void out_free(out_ctx_t *ctx);
 
 #endif /* OUT_H_ */

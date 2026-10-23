@@ -3,7 +3,6 @@
 #include <limits.h>
 #include <stdio.h>
 #include "../../include/my_printf.h"
-
 Test(my_printf, writes_plain_text)
 {
     char got[64] = {0};
@@ -158,4 +157,97 @@ Test(my_printf, ignores_trailing_percent)
     my_printf("abc%");
     fgets(got, sizeof(got), cr_get_redirected_stdout());
     cr_assert_str_eq(got, "abc");
+}
+
+Test(my_printf, writes_uint_specifier)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%u", 42u);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "42");
+}
+
+Test(my_printf, handles_uint_max)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%u", UINT_MAX);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "4294967295");
+}
+
+Test(my_printf, reinterprets_negative_int_as_uint)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%u", -1);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "4294967295");
+}
+
+Test(my_printf, writes_hex_lower)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%x", 255);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "ff");
+}
+
+Test(my_printf, writes_hex_upper)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%X", 255);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "FF");
+}
+
+Test(my_printf, writes_octal)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%o", 64);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "100");
+}
+
+Test(my_printf, handles_zero_hex)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%x", 0);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "0");
+}
+
+Test(my_printf, writes_pointer_specifier)
+{
+    char got[64] = {0};
+    char expected[64] = {0};
+    int value = 0;
+
+    cr_redirect_stdout();
+    my_printf("%p", &value);
+    snprintf(expected, sizeof(expected), "%p", &value);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, expected);
+}
+
+Test(my_printf, handles_null_pointer)
+{
+    char got[16] = {0};
+
+    cr_redirect_stdout();
+    my_printf("%p", NULL);
+    fgets(got, sizeof(got), cr_get_redirected_stdout());
+    cr_assert_str_eq(got, "(nil)");
 }

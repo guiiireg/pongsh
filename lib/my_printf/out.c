@@ -53,47 +53,23 @@ void out_putchar(out_ctx_t *ctx, char c)
 }
 
 /**
- * @brief Append a null-terminated string.
- * @param ctx: output context.
- * @param str: string to append.
- */
-void out_putstr(out_ctx_t *ctx, const char *str)
-{
-    for (int i = 0; str[i] != '\0'; i++)
-        out_putchar(ctx, str[i]);
-}
-
-/**
- * @brief Write the whole buffer to stdout with a single write call.
- * @param ctx: output context.
+ * @brief Write the whole buffer to stdout in one call, then release it.
+ * @param ctx: output context, consumed by the call.
  */
 void out_flush(out_ctx_t *ctx)
 {
     int written = 0;
     int count = 0;
 
-    if (ctx->error == 1)
-        return;
-    while (written < ctx->len) {
+    while (ctx->error == 0 && written < ctx->len) {
         count = write(1, ctx->buf + written, ctx->len - written);
-        if (count == -1) {
+        if (count == -1)
             ctx->error = 1;
-            return;
-        }
-        written += count;
+        else
+            written += count;
     }
-    ctx->len = 0;
-}
-
-/**
- * @brief Release the buffer memory and reset the context.
- * @param ctx: output context.
- */
-void out_free(out_ctx_t *ctx)
-{
     free(ctx->buf);
     ctx->buf = NULL;
     ctx->len = 0;
     ctx->cap = 0;
-    ctx->error = 0;
 }
