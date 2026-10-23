@@ -9,10 +9,10 @@ ARFLAGS	= rc
 
 NAME	= libmy.a
 
-SRC	= $(wildcard lib/my/*.c)
+SRC	= $(wildcard lib/my/*.c) $(wildcard lib/my_printf/*.c)
 OBJ	= $(SRC:.c=.o)
 
-TESTS_SRC	= $(wildcard tests/*.c)
+TESTS_SRC	= $(wildcard tests/*.c) $(wildcard tests/my_printf/*.c)
 TESTS_BIN	= tests_libmy
 
 all:		$(NAME)
