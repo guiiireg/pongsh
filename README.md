@@ -115,6 +115,16 @@ gcc main.c -Iinclude -L. -lmy -o hello
 
 ## Architecture
 
+### Module layout
+
+```
+lib/
+├── my/          core libc — strings, memory, basic output
+└── my_printf/   formatted output (planned), layered on top of my/
+```
+
+Each module gets its own directory and its own archive (`libmy.a`, `libmyprintf.a`, ...) so the frozen, fully tested core never mixes with the layers built on top of it.
+
 Current state — a static library, fully tested:
 
 ```
