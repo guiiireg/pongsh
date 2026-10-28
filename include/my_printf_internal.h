@@ -14,7 +14,6 @@
  * failure, and advances the format index past what it consumed.
  */
 
-/* Returned by pf_parse when the specifier is not a conversion. */
 #define PF_NOT_CONVERSION (-1)
 
 /* The parsed fields of a conversion specification. */
@@ -31,8 +30,24 @@ typedef struct pf_spec_s {
     char spec;
 } pf_spec_t;
 
+/* The computed layout of a number rendering. */
+typedef struct pf_number_s {
+    char const *prefix;
+    char const *base;
+    unsigned long magnitude;
+    int zeros;
+    int pad;
+    int digits;
+} pf_number_t;
+
 int pf_parse(va_list *args, char const *format, int *index,
     pf_spec_t *spec);
+void pf_parse_flags(char const *format, int *index, pf_spec_t *spec);
+int pf_parse_width(va_list *args, char const *format, int *index,
+    pf_spec_t *spec);
+int pf_parse_precision(va_list *args, char const *format, int *index,
+    pf_spec_t *spec);
+
 int pf_percent(va_list *args, char const *format, int *index);
 int pf_directive(va_list *args, char const *format, int *index);
 int pf_format(va_list *args, char const *format);
@@ -41,8 +56,18 @@ int pf_run(va_list *args, pf_spec_t *spec);
 int pf_render_char(va_list *args, pf_spec_t const *spec);
 int pf_render_string(va_list *args, pf_spec_t const *spec);
 int pf_render_number(va_list *args, pf_spec_t *spec);
+
+int pf_base(unsigned long value, char const *base);
+int pf_count_digits(unsigned long value, int base_len);
+int pf_leading_zeros(pf_spec_t const *spec, unsigned long magnitude,
+    char const *base);
+char const *pf_number_prefix(pf_spec_t const *spec, unsigned long magnitude,
+    int zeros, int digits);
 int pf_write_number(pf_spec_t const *spec, unsigned long magnitude,
     char const *base);
+int emit_number_left(pf_number_t const *number);
+int emit_number_zero(pf_number_t const *number);
+int emit_number_right(pf_number_t const *number);
 
 int pf_add_status(int status, int total);
 int pf_repeat(char c, int count);

@@ -1,7 +1,11 @@
 #include <unistd.h>
 
+#include "my.h"
+
 /**
  * @brief Writes a string to the standard output.
+ *
+ * The string is written with a single write call.
  *
  * @param str The string to write.
  *
@@ -9,16 +13,14 @@
  */
 int my_putstr(char const *str)
 {
-    int count = 0;
+    int len;
 
     if (str == NULL) {
         return (-1);
     }
-    while (str[count] != '\0') {
-        if (write(STDOUT_FILENO, &str[count], 1) == -1) {
-            return (-1);
-        }
-        count += 1;
+    len = my_strlen(str);
+    if (write(STDOUT_FILENO, str, len) != len) {
+        return (-1);
     }
-    return (count);
+    return (len);
 }

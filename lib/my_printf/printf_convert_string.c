@@ -4,67 +4,6 @@
 #include "my_printf_internal.h"
 
 /**
- * @brief Writes a character, left aligned in its field.
- *
- * @param c The character to write.
- * @param pad The number of trailing spaces.
- *
- * @return The number of bytes written, or -1 on failure.
- */
-static int emit_char_left(char c, int pad)
-{
-    int total = my_putchar(c);
-
-    if (total != -1) {
-        total = pf_add_status(pf_repeat(' ', pad), total);
-    }
-    return (total);
-}
-
-/**
- * @brief Writes a character, right aligned in its field.
- *
- * @param c The character to write.
- * @param pad The number of leading spaces.
- *
- * @return The number of bytes written, or -1 on failure.
- */
-static int emit_char_right(char c, int pad)
-{
-    int total = pf_repeat(' ', pad);
-
-    if (total != -1) {
-        total = pf_add_status(my_putchar(c), total);
-    }
-    return (total);
-}
-
-/**
- * @brief Renders a %c conversion.
- *
- * The int argument is converted to an unsigned char. The 0 flag is
- * undefined for this conversion and is ignored.
- *
- * @param args The variadic arguments of my_printf.
- * @param spec The parsed specification.
- *
- * @return The number of bytes written, or -1 on failure.
- */
-int pf_render_char(va_list *args, pf_spec_t const *spec)
-{
-    char c = (char)va_arg(*args, int);
-    int pad = 0;
-
-    if (spec->width > 1) {
-        pad = spec->width - 1;
-    }
-    if (spec->left) {
-        return (emit_char_left(c, pad));
-    }
-    return (emit_char_right(c, pad));
-}
-
-/**
  * @brief Writes a string, left aligned in its field.
  *
  * @param str The string to write.
@@ -103,10 +42,29 @@ static int emit_string_right(char const *str, int len, int pad)
 }
 
 /**
+ * @brief Computes the printed length of a NULL string.
+ *
+ * Like glibc, a NULL string prints (null), but nothing at all when
+ * the precision is too small to fit it.
+ *
+ * @param spec The parsed specification.
+ *
+ * @return The number of characters printed for a NULL string.
+ */
+static int pf_null_string_len(pf_spec_t const *spec)
+{
+    if (spec->has_precision && spec->precision < 6) {
+        return (0);
+    }
+    return (6);
+}
+
+/**
  * @brief Renders a %s conversion.
  *
- * A NULL argument is printed as (null), like glibc does. The
- * precision truncates the string; the width never does.
+ * A NULL argument is printed as (null), like glibc does: the whole
+ * literal, or nothing when the precision is below 6. The precision
+ * truncates the string; the width never does.
  *
  * @param args The variadic arguments of my_printf.
  * @param spec The parsed specification.
@@ -121,8 +79,10 @@ int pf_render_string(va_list *args, pf_spec_t const *spec)
 
     if (str == NULL) {
         str = "(null)";
+        len = pf_null_string_len(spec);
+    } else {
+        len = my_strlen(str);
     }
-    len = my_strlen(str);
     if (spec->has_precision && spec->precision < len) {
         len = spec->precision;
     }

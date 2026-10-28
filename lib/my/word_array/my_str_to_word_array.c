@@ -1,9 +1,16 @@
-#include <stddef.h>
 #include <stdlib.h>
 
 #include "my.h"
+#include "word_array_internal.h"
 
-static int is_separator(char c)
+/**
+ * @brief Checks whether a character separates two words.
+ *
+ * @param c The character to check.
+ *
+ * @return 1 if the character is a separator, 0 otherwise.
+ */
+int wa_is_separator(char c)
 {
     if (c == ' ' || c == '\t' || c == '\n') {
         return (1);
@@ -11,14 +18,23 @@ static int is_separator(char c)
     return (0);
 }
 
-static int count_words(char const *str)
+/**
+ * @brief Counts the words of a string.
+ *
+ * Consecutive separators are treated as one.
+ *
+ * @param str The string to scan.
+ *
+ * @return The number of words in the string.
+ */
+static int wa_count_words(char const *str)
 {
     int count = 0;
     int i = 0;
     int in_word = 0;
 
     while (str[i] != '\0') {
-        if (is_separator(str[i]) == 1) {
+        if (wa_is_separator(str[i]) == 1) {
             in_word = 0;
         } else if (in_word == 0) {
             in_word = 1;
@@ -27,60 +43,6 @@ static int count_words(char const *str)
         i += 1;
     }
     return (count);
-}
-
-static char *copy_word(char const *str, int len)
-{
-    char *word = malloc(sizeof(char) * (len + 1));
-    int i = 0;
-
-    if (word == NULL) {
-        return (NULL);
-    }
-    while (i < len) {
-        word[i] = str[i];
-        i += 1;
-    }
-    word[len] = '\0';
-    return (word);
-}
-
-static int fill_word(char **array, int word, char const *str, int *i)
-{
-    int len = 0;
-
-    while (is_separator(str[*i]) == 1) {
-        *i += 1;
-    }
-    if (str[*i] == '\0') {
-        return (1);
-    }
-    while (str[*i + len] != '\0' && is_separator(str[*i + len]) == 0) {
-        len += 1;
-    }
-    array[word] = copy_word(&str[*i], len);
-    if (array[word] == NULL) {
-        return (-1);
-    }
-    *i += len;
-    return (0);
-}
-
-static int fill_words(char **array, char const *str)
-{
-    int i = 0;
-    int word = 0;
-    int status = fill_word(array, word, str, &i);
-
-    while (status == 0) {
-        word += 1;
-        status = fill_word(array, word, str, &i);
-    }
-    array[word] = NULL;
-    if (status == -1) {
-        return (-1);
-    }
-    return (0);
 }
 
 /**
@@ -102,11 +64,11 @@ char **my_str_to_word_array(char const *str)
     if (str == NULL) {
         return (NULL);
     }
-    array = malloc(sizeof(char *) * (count_words(str) + 1));
+    array = malloc(sizeof(char *) * (wa_count_words(str) + 1));
     if (array == NULL) {
         return (NULL);
     }
-    if (fill_words(array, str) == -1) {
+    if (wa_fill_words(array, str) == -1) {
         my_free_word_array(array);
         return (NULL);
     }

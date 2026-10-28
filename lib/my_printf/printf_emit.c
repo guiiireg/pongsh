@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #include "my.h"
 #include "my_printf_internal.h"
 
@@ -46,6 +48,8 @@ int pf_repeat(char c, int count)
 /**
  * @brief Writes the first len characters of a string.
  *
+ * The characters are written with a single write call.
+ *
  * @param str The string to write from.
  * @param len The number of characters to write.
  *
@@ -53,15 +57,11 @@ int pf_repeat(char c, int count)
  */
 int pf_write_chars(char const *str, int len)
 {
-    int i = 0;
-    int total = 0;
-
-    while (i < len) {
-        total = pf_add_status(my_putchar(str[i]), total);
-        if (total == -1) {
-            return (-1);
-        }
-        i += 1;
+    if (len < 0) {
+        return (0);
     }
-    return (total);
+    if (write(STDOUT_FILENO, str, len) != len) {
+        return (-1);
+    }
+    return (len);
 }
