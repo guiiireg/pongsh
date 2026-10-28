@@ -11,12 +11,12 @@ static int compare_words(void const *a, void const *b)
 }
 
 /**
-** @brief Sorts a NULL-terminated word array in lexicographic order.
-**
-** @param array The word array to sort.
-**
-** @return 0 on success, or -1 on failure.
-*/
+ * @brief Sorts a NULL-terminated word array in lexicographic order.
+ *
+ * @param array The word array to sort.
+ *
+ * @return 0 on success, or -1 on failure.
+ */
 int my_sort_word_array(char **array)
 {
     int count = 0;

@@ -1,14 +1,14 @@
 #include <stddef.h>
 
 /**
-** @brief Finds the first occurrence of a substring in a string.
-**
-** @param str The string to search in.
-** @param needle The substring to find.
-**
-** @return A pointer to the first occurrence, to str if needle is empty,
-**         or NULL if not found.
-*/
+ * @brief Finds the first occurrence of a substring in a string.
+ *
+ * @param str The string to search in.
+ * @param needle The substring to find.
+ *
+ * @return A pointer to the first occurrence, to str if needle is empty,
+ *         or NULL if not found.
+ */
 char *my_strstr(char const *str, char const *needle)
 {
     int i = 0;

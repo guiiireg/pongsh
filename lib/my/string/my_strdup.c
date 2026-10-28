@@ -3,12 +3,12 @@
 #include "my.h"
 
 /**
-** @brief Duplicates a string into a newly allocated one.
-**
-** @param str The string to duplicate.
-**
-** @return A newly allocated copy of the string, or NULL on failure.
-*/
+ * @brief Duplicates a string into a newly allocated one.
+ *
+ * @param str The string to duplicate.
+ *
+ * @return A newly allocated copy of the string, or NULL on failure.
+ */
 char *my_strdup(char const *str)
 {
     char *copy;

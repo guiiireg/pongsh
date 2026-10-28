@@ -42,10 +42,12 @@ SRC     = lib/my/io/my_putchar.c            \
           lib/my_printf/my_printf.c             \
           lib/my_printf/printf_directive.c      \
           lib/my_printf/printf_walker.c         \
+          lib/my_printf/printf_parse.c          \
+          lib/my_printf/printf_emit.c           \
+          lib/my_printf/printf_render.c         \
           lib/my_printf/printf_convert.c        \
           lib/my_printf/printf_convert_text.c   \
-          lib/my_printf/printf_convert_int.c    \
-          lib/my_printf/printf_convert_ptr.c
+          lib/my_printf/printf_convert_int.c
 
 OBJ     = $(SRC:.c=.o)
 

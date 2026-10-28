@@ -1,14 +1,14 @@
 #include <stddef.h>
 
 /**
-** @brief Compares two strings lexicographically.
-**
-** @param s1 The first string.
-** @param s2 The second string.
-**
-** @return A negative value if s1 is lower, 0 if the strings are equal,
-**         a positive value if s1 is greater, or -1 on failure.
-*/
+ * @brief Compares two strings lexicographically.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ *
+ * @return A negative value if s1 is lower, 0 if the strings are equal,
+ *         a positive value if s1 is greater, or -1 on failure.
+ */
 int my_strcmp(char const *s1, char const *s2)
 {
     int i = 0;

@@ -2,13 +2,13 @@
 #include "my_printf_internal.h"
 
 /**
-** @brief Writes a literal character of the format string.
-**
-** @param format The format string being processed.
-** @param index The current position, advanced by one character.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
+ * @brief Writes a literal character of the format string.
+ *
+ * @param format The format string being processed.
+ * @param index The current position, advanced by one character.
+ *
+ * @return The number of bytes written, or -1 on failure.
+ */
 int pf_plain(char const *format, int *index)
 {
     int status = my_putchar(format[*index]);
@@ -21,57 +21,50 @@ int pf_plain(char const *format, int *index)
 }
 
 /**
-** @brief Writes a percent sign, literal or a conversion.
-**
-** The %% pair writes a single percent sign. A known conversion is
-** delegated to pf_convert. Anything else is written literally.
-**
-** @param args The variadic arguments of my_printf.
-** @param format The format string being processed.
-** @param index The current position, advanced by the consumed
-**              characters.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
+ * @brief Writes a percent sign, a %% pair or a conversion.
+ *
+ * An unsupported specifier is written literally: the consumed flags
+ * and width are emitted, then the parsing resumes after the %.
+ *
+ * @param args The variadic arguments of my_printf.
+ * @param format The format string being processed.
+ * @param index The current position, advanced by the directive.
+ *
+ * @return The number of bytes written, or -1 on failure.
+ */
 int pf_percent(va_list *args, char const *format, int *index)
 {
-    char spec = format[*index + 1];
+    pf_spec_t spec;
+    int start = *index;
     int status;
 
-    if (spec == '%') {
+    if (format[start + 1] == '%') {
         status = my_putchar('%');
         if (status == -1) {
             return (-1);
         }
-        *index += 2;
+        *index = start + 2;
         return (status);
     }
-    status = pf_convert(args, spec);
-
-    if (status == PF_NOT_CONVERSION) {
-        status = my_putchar('%');
-        if (status == -1) {
-            return (-1);
-        }
-        *index += 1;
-        return (status);
+    *index = start + 1;
+    if (pf_parse(args, format, index, &spec) == 0) {
+        return (pf_run(args, &spec));
     }
-    if (status == -1) {
-        return (-1);
+    if (*index == start + 1) {
+        return (my_putchar('%'));
     }
-    *index += 2;
-    return (status);
+    return (pf_write_chars(&format[start], *index - start));
 }
 
 /**
-** @brief Dispatches one directive of the format string.
-**
-** @param args The variadic arguments of my_printf.
-** @param format The format string being processed.
-** @param index The current position, advanced by the directive.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
+ * @brief Dispatches one directive of the format string.
+ *
+ * @param args The variadic arguments of my_printf.
+ * @param format The format string being processed.
+ * @param index The current position, advanced by the directive.
+ *
+ * @return The number of bytes written, or -1 on failure.
+ */
 int pf_directive(va_list *args, char const *format, int *index)
 {
     if (format[*index] == '%') {

@@ -84,17 +84,17 @@ static int fill_words(char **array, char const *str)
 }
 
 /**
-** @brief Splits a string into an array of words.
-**
-** Words are separated by spaces, tabs and newlines. Consecutive
-** separators are treated as one. The returned array is NULL-terminated
-** and must be released with my_free_word_array.
-**
-** @param str The string to split.
-**
-** @return A newly allocated NULL-terminated array of words, or NULL
-**         on failure.
-*/
+ * @brief Splits a string into an array of words.
+ *
+ * Words are separated by spaces, tabs and newlines. Consecutive
+ * separators are treated as one. The returned array is NULL-terminated
+ * and must be released with my_free_word_array.
+ *
+ * @param str The string to split.
+ *
+ * @return A newly allocated NULL-terminated array of words, or NULL
+ *         on failure.
+ */
 char **my_str_to_word_array(char const *str)
 {
     char **array;

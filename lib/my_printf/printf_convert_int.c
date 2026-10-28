@@ -2,73 +2,55 @@
 #include "my_printf_internal.h"
 
 /**
-** @brief Writes an unsigned value in the given base.
-**
-** @param value The value to write.
-** @param base The digits of the base, in order.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
-int pf_base(unsigned long value, char const *base)
+ * @brief Maps a conversion specifier to its base digits.
+ *
+ * @param spec The conversion specifier.
+ *
+ * @return The digits of the base, in order.
+ */
+static char const *pf_number_base(char spec)
 {
-    unsigned long divisor = (unsigned long)my_strlen(base);
-    int emitted = 0;
-    int status;
+    switch (spec) {
+        case 'o':
+            return ("01234567");
+        case 'x':
+        case 'p':
+            return ("0123456789abcdef");
+        case 'X':
+            return ("0123456789ABCDEF");
+        default:
+            return ("0123456789");
+    }
+}
 
-    if (value >= divisor) {
-        status = pf_base(value / divisor, base);
-        if (status == -1) {
-            return (-1);
+/**
+ * @brief Renders a %d, %i, %u, %o, %x, %X or %p conversion.
+ *
+ * INT_MIN cannot be negated as an int. Negating it as an unsigned
+ * value instead is always well defined and yields its magnitude.
+ *
+ * @param args The variadic arguments of my_printf.
+ * @param spec The parsed specification.
+ *
+ * @return The number of bytes written, or -1 on failure.
+ */
+int pf_render_number(va_list *args, pf_spec_t *spec)
+{
+    unsigned long magnitude = 0;
+    int value = 0;
+
+    if (spec->spec == 'd' || spec->spec == 'i') {
+        value = va_arg(*args, int);
+        if (value < 0) {
+            spec->negative = 1;
+            magnitude = -(unsigned int)value;
+        } else {
+            magnitude = (unsigned long)value;
         }
-        emitted += status;
+    } else if (spec->spec == 'p') {
+        magnitude = (unsigned long)va_arg(*args, void *);
+    } else {
+        magnitude = va_arg(*args, unsigned int);
     }
-    status = my_putchar(base[value % divisor]);
-    if (status == -1) {
-        return (-1);
-    }
-    return (emitted + status);
-}
-
-/**
-** @brief Writes a %d or %i conversion: a signed decimal integer.
-**
-** INT_MIN cannot be negated as an int. Negating it as an unsigned
-** value instead is always well defined and yields its magnitude.
-**
-** @param args The variadic arguments of my_printf.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
-int pf_signed(va_list *args)
-{
-    int value = va_arg(*args, int);
-    int status;
-
-    if (value >= 0) {
-        return (pf_base((unsigned long)value, "0123456789"));
-    }
-    status = my_putchar('-');
-    if (status == -1) {
-        return (-1);
-    }
-    status = pf_base(-(unsigned int)value, "0123456789");
-    if (status == -1) {
-        return (-1);
-    }
-    return (status + 1);
-}
-
-/**
-** @brief Writes an %u, %o, %x or %X conversion.
-**
-** @param args The variadic arguments of my_printf.
-** @param base The digits of the base, in order.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
-int pf_unsigned(va_list *args, char const *base)
-{
-    unsigned int value = va_arg(*args, unsigned int);
-
-    return (pf_base((unsigned long)value, base));
+    return (pf_write_number(spec, magnitude, pf_number_base(spec->spec)));
 }

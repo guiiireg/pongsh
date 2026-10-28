@@ -3,12 +3,12 @@
 #include "my.h"
 
 /**
-** @brief Reverses a string in place.
-**
-** @param str The string to reverse.
-**
-** @return The length of the string, or -1 on failure.
-*/
+ * @brief Reverses a string in place.
+ *
+ * @param str The string to reverse.
+ *
+ * @return The length of the string, or -1 on failure.
+ */
 int my_revstr(char *str)
 {
     int i = 0;

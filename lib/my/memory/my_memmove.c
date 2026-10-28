@@ -1,17 +1,17 @@
 #include <stddef.h>
 
 /**
-** @brief Copies a memory area, handling overlapping areas safely.
-**
-** Unlike my_memcpy, the copy is done backward when the destination
-** overlaps the source, so no byte is overwritten before being read.
-**
-** @param dest The destination memory area.
-** @param src The source memory area.
-** @param n The number of bytes to copy.
-**
-** @return A pointer to the destination, or NULL on failure.
-*/
+ * @brief Copies a memory area, handling overlapping areas safely.
+ *
+ * Unlike my_memcpy, the copy is done backward when the destination
+ * overlaps the source, so no byte is overwritten before being read.
+ *
+ * @param dest The destination memory area.
+ * @param src The source memory area.
+ * @param n The number of bytes to copy.
+ *
+ * @return A pointer to the destination, or NULL on failure.
+ */
 void *my_memmove(void *dest, void const *src, int n)
 {
     int i = 0;

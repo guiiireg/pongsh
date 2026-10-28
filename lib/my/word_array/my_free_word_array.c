@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 /**
-** @brief Frees a word array and its words.
-**
-** @param array The NULL-terminated word array to free.
-*/
+ * @brief Frees a word array and its words.
+ *
+ * @param array The NULL-terminated word array to free.
+ */
 void my_free_word_array(char **array)
 {
     int i = 0;

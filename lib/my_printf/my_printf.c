@@ -3,17 +3,17 @@
 #include "my_printf_internal.h"
 
 /**
-** @brief Writes a formatted string to the standard output.
-**
-** Plain characters, %% and the %c %s %d %i %u %o %x %X %p
-** conversions are handled. Flags, width and precision are not
-** implemented yet. An unsupported specifier is written literally.
-**
-** @param format The format string.
-** @param ... The values to convert, one per conversion.
-**
-** @return The number of bytes written, or -1 on failure.
-*/
+ * @brief Writes a formatted string to the standard output.
+ *
+ * Supports the %% and %c %s %d %i %u %o %x %X %p conversions, the
+ * - 0 + space # flags, a numeric or * field width and a numeric or
+ * * precision. An unsupported specifier is written literally.
+ *
+ * @param format The format string.
+ * @param ... The values to convert, one per conversion.
+ *
+ * @return The number of bytes written, or -1 on failure.
+ */
 int my_printf(char const *format, ...)
 {
     va_list args;

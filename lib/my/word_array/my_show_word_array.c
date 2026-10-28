@@ -3,14 +3,14 @@
 #include "my.h"
 
 /**
-** @brief Writes each word of an array to the standard output.
-**
-** Each word is followed by a newline.
-**
-** @param array The NULL-terminated word array to display.
-**
-** @return The number of words displayed, or -1 on failure.
-*/
+ * @brief Writes each word of an array to the standard output.
+ *
+ * Each word is followed by a newline.
+ *
+ * @param array The NULL-terminated word array to display.
+ *
+ * @return The number of words displayed, or -1 on failure.
+ */
 int my_show_word_array(char *const *array)
 {
     int i = 0;

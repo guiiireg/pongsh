@@ -1,16 +1,16 @@
 #include <stddef.h>
 
 /**
-** @brief Compares the first n characters of two strings.
-**
-** @param s1 The first string.
-** @param s2 The second string.
-** @param n The maximum number of characters to compare.
-**
-** @return A negative value if the segment of s1 is lower, 0 if the
-**         segments are equal, a positive value if the segment of s1 is
-**         greater, or -1 on failure.
-*/
+ * @brief Compares the first n characters of two strings.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ * @param n The maximum number of characters to compare.
+ *
+ * @return A negative value if the segment of s1 is lower, 0 if the
+ *         segments are equal, a positive value if the segment of s1 is
+ *         greater, or -1 on failure.
+ */
 int my_strncmp(char const *s1, char const *s2, int n)
 {
     int i = 0;

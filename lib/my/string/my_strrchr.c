@@ -3,14 +3,14 @@
 #include "my.h"
 
 /**
-** @brief Finds the last occurrence of a character in a string.
-**
-** @param str The string to search in.
-** @param c The character to find.
-**
-** @return A pointer to the last occurrence, to the terminating null
-**         byte if c is '\0', or NULL if not found.
-*/
+ * @brief Finds the last occurrence of a character in a string.
+ *
+ * @param str The string to search in.
+ * @param c The character to find.
+ *
+ * @return A pointer to the last occurrence, to the terminating null
+ *         byte if c is '\0', or NULL if not found.
+ */
 char *my_strrchr(char const *str, int c)
 {
     int len;

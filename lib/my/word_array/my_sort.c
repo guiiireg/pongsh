@@ -14,16 +14,16 @@ static void swap_bytes(char *a, char *b, int size)
 }
 
 /**
-** @brief Sorts an array using a comparison callback.
-**
-** The comparison function receives pointers to two elements and must
-** return a negative value, 0, or a positive value.
-**
-** @param base The array to sort.
-** @param nmemb The number of elements in the array.
-** @param size The size of each element, in bytes.
-** @param cmp The comparison function.
-*/
+ * @brief Sorts an array using a comparison callback.
+ *
+ * The comparison function receives pointers to two elements and must
+ * return a negative value, 0, or a positive value.
+ *
+ * @param base The array to sort.
+ * @param nmemb The number of elements in the array.
+ * @param size The size of each element, in bytes.
+ * @param cmp The comparison function.
+ */
 void my_sort(void *base, int nmemb, int size,
     int (*cmp)(void const *, void const *))
 {
