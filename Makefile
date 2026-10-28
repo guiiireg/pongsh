@@ -7,14 +7,20 @@ SRC     = lib/my/my_putchar.c     \
           lib/my/my_putstr.c      \
           lib/my/my_puterr.c      \
           lib/my/my_isalpha.c     \
-          lib/my/my_isdigit.c      \
+          lib/my/my_isdigit.c     \
           lib/my/my_isalnum.c     \
           lib/my/my_isupper.c     \
           lib/my/my_islower.c     \
           lib/my/my_isprint.c     \
           lib/my/my_isascii.c     \
           lib/my/my_toupper.c     \
-          lib/my/my_tolower.c
+          lib/my/my_tolower.c     \
+          lib/my/my_strlen.c      \
+          lib/my/my_strcpy.c      \
+          lib/my/my_strncpy.c     \
+          lib/my/my_strcat.c      \
+          lib/my/my_strncat.c     \
+          lib/my/my_strdup.c
 
 OBJ     = $(SRC:.c=.o)
 

@@ -16,3 +16,5 @@ tests/test_my
 Thumbs.db
 
 .vibe/
+unit_tests
+vgcore.*
