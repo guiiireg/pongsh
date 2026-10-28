@@ -38,7 +38,14 @@ SRC     = lib/my/io/my_putchar.c            \
           lib/my/word_array/my_show_word_array.c   \
           lib/my/word_array/my_free_word_array.c   \
           lib/my/word_array/my_sort.c       \
-          lib/my/word_array/my_sort_word_array.c
+          lib/my/word_array/my_sort_word_array.c \
+          lib/my_printf/my_printf.c             \
+          lib/my_printf/printf_directive.c      \
+          lib/my_printf/printf_walker.c         \
+          lib/my_printf/printf_convert.c        \
+          lib/my_printf/printf_convert_text.c   \
+          lib/my_printf/printf_convert_int.c    \
+          lib/my_printf/printf_convert_ptr.c
 
 OBJ     = $(SRC:.c=.o)
 

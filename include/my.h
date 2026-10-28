@@ -1,5 +1,5 @@
 #ifndef MY_H_
-# define MY_H_
+    #define MY_H_
 
 int my_putchar(char c);
 int my_putstr(char const *str);
@@ -38,5 +38,6 @@ void my_free_word_array(char **array);
 void my_sort(void *base, int nmemb, int size,
     int (*cmp)(void const *, void const *));
 int my_sort_word_array(char **array);
+int my_printf(char const *format, ...);
 
 #endif // MY_H_
