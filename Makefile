@@ -1,40 +1,40 @@
-NAME = libmy.a
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Werror -Iinclude
 
-SRC_DIR = lib/my
-INCLUDE_DIR = include
-TEST_DIR = tests
-OBJ_DIR = obj
+NAME    = libmy.a
 
-SRC = $(wildcard $(SRC_DIR)/*.c)
-OBJ = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
-TEST_SRC = $(wildcard $(TEST_DIR)/*.c)
+SRC     = lib/my/my_putchar.c     \
+          lib/my/my_putstr.c      \
+          lib/my/my_puterr.c      \
+          lib/my/my_isalpha.c     \
+          lib/my/my_isdigit.c      \
+          lib/my/my_isalnum.c     \
+          lib/my/my_isupper.c     \
+          lib/my/my_islower.c     \
+          lib/my/my_isprint.c     \
+          lib/my/my_isascii.c     \
+          lib/my/my_toupper.c     \
+          lib/my/my_tolower.c
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR)
-CRITERION_FLAGS = -lcriterion
+OBJ     = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-tests: $(NAME) test_run
-
-test_run: $(TEST_SRC)
-	$(CC) $(CFLAGS) -I$(TEST_DIR) $(TEST_SRC) $(NAME) $(CRITERION_FLAGS) -o $(TEST_DIR)/test_my
-	@echo "Running tests..."
-	@$(TEST_DIR)/test_my
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 clean:
-	rm -rf $(OBJ_DIR) $(NAME) $(TEST_DIR)/test_my
+	rm -f $(OBJ)
 
 fclean: clean
-	rm -rf $(OBJ_DIR)
+	rm -f $(NAME) unit_tests
 
 re: fclean all
 
-.PHONY: all clean fclean re tests
+tests_run: $(SRC) $(wildcard tests/test_*.c)
+	gcc -Wall -Wextra -Werror -Iinclude $(SRC) $(wildcard tests/test_*.c) \
+	    -lcriterion -o unit_tests
+	./unit_tests
+
+.PHONY: all clean fclean re tests_run

@@ -1,15 +1,24 @@
 #include <unistd.h>
 
-int my_putstr(const char *str) {
+/**
+** @brief Writes a string to the standard output.
+**
+** @param str The string to write.
+**
+** @return The number of bytes written, or -1 on failure.
+*/
+int my_putstr(char const *str)
+{
     int count = 0;
-    
-    if (str == NULL)
-        return 0;
-    
-    while (str[count] != '\0') {
-        write(1, &str[count], 1);
-        count++;
+
+    if (str == NULL) {
+        return (-1);
     }
-    
-    return count;
+    while (str[count] != '\0') {
+        if (write(STDOUT_FILENO, &str[count], 1) == -1) {
+            return (-1);
+        }
+        count += 1;
+    }
+    return (count);
 }

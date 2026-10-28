@@ -1,13 +1,17 @@
 #ifndef MY_H_
-#define MY_H_
+# define MY_H_
 
-void my_putchar(char c);
-int my_putstr(const char *str);
-int my_strlen(const char *str);
-char *my_strcpy(char *dest, const char *src);
-char *my_strdup(const char *s);
-int my_put_nbr(int n);
-int my_strcmp(const char *s1, const char *s2);
-char *my_strcat(char *dest, const char *src);
+int my_putchar(char c);
+int my_putstr(char const *str);
+int my_puterr(char const *str);
+int my_isalpha(int c);
+int my_isdigit(int c);
+int my_isalnum(int c);
+int my_isupper(int c);
+int my_islower(int c);
+int my_isprint(int c);
+int my_isascii(int c);
+int my_toupper(int c);
+int my_tolower(int c);
 
-#endif /* MY_H_ */
+#endif // MY_H_
