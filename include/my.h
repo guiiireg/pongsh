@@ -32,5 +32,11 @@ void *my_memmove(void *dest, void const *src, int n);
 void *my_memchr(void const *s, int c, int n);
 int my_memcmp(void const *s1, void const *s2, int n);
 void *my_calloc(int nmemb, int size);
+char **my_str_to_word_array(char const *str);
+int my_show_word_array(char *const *array);
+void my_free_word_array(char **array);
+void my_sort(void *base, int nmemb, int size,
+    int (*cmp)(void const *, void const *));
+int my_sort_word_array(char **array);
 
 #endif // MY_H_

@@ -33,7 +33,12 @@ SRC     = lib/my/my_putchar.c     \
           lib/my/my_memmove.c     \
           lib/my/my_memchr.c      \
           lib/my/my_memcmp.c      \
-          lib/my/my_calloc.c
+          lib/my/my_calloc.c       \
+          lib/my/my_str_to_word_array.c \
+          lib/my/my_show_word_array.c   \
+          lib/my/my_free_word_array.c   \
+          lib/my/my_sort.c         \
+          lib/my/my_sort_word_array.c
 
 OBJ     = $(SRC:.c=.o)
 
