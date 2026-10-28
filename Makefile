@@ -40,21 +40,21 @@ SRC     = lib/my/io/my_putchar.c            \
           lib/my/word_array/my_sort.c       \
           lib/my/word_array/my_sort_word_array.c \
           lib/my/word_array/my_word_array_fill.c \
-          lib/my_printf/my_printf.c             \
-          lib/my_printf/printf_directive.c      \
-          lib/my_printf/printf_walker.c         \
-          lib/my_printf/printf_parse.c          \
-          lib/my_printf/printf_parse_flags.c    \
-          lib/my_printf/printf_parse_size.c     \
-          lib/my_printf/printf_emit.c           \
-          lib/my_printf/printf_number_digits.c  \
-          lib/my_printf/printf_number_prefix.c  \
-          lib/my_printf/printf_number_emit.c    \
-          lib/my_printf/printf_render.c         \
-          lib/my_printf/printf_convert.c        \
-          lib/my_printf/printf_convert_char.c   \
-          lib/my_printf/printf_convert_string.c \
-          lib/my_printf/printf_convert_int.c
+          lib/my_printf/core/my_printf.c             \
+          lib/my_printf/core/printf_directive.c      \
+          lib/my_printf/core/printf_walker.c         \
+          lib/my_printf/core/printf_emit.c           \
+          lib/my_printf/parse/printf_parse.c          \
+          lib/my_printf/parse/printf_parse_flags.c    \
+          lib/my_printf/parse/printf_parse_size.c     \
+          lib/my_printf/render/printf_number_digits.c  \
+          lib/my_printf/render/printf_number_prefix.c  \
+          lib/my_printf/render/printf_number_emit.c    \
+          lib/my_printf/render/printf_render.c         \
+          lib/my_printf/convert/printf_convert.c        \
+          lib/my_printf/convert/printf_convert_char.c   \
+          lib/my_printf/convert/printf_convert_string.c \
+          lib/my_printf/convert/printf_convert_int.c
 
 OBJ     = $(SRC:.c=.o)
 
