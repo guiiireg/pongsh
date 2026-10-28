@@ -20,3 +20,4 @@ unit_tests
 vgcore.*
 
 *.o
+AGENTS.md
