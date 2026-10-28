@@ -19,5 +19,11 @@ char *my_strncpy(char *dest, char const *src, int n);
 char *my_strcat(char *dest, char const *src);
 char *my_strncat(char *dest, char const *src, int n);
 char *my_strdup(char const *str);
+int my_strcmp(char const *s1, char const *s2);
+int my_strncmp(char const *s1, char const *s2, int n);
+char *my_strchr(char const *str, int c);
+char *my_strrchr(char const *str, int c);
+char *my_strstr(char const *str, char const *needle);
+int my_revstr(char *str);
 
 #endif // MY_H_

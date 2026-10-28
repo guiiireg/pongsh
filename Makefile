@@ -20,7 +20,13 @@ SRC     = lib/my/my_putchar.c     \
           lib/my/my_strncpy.c     \
           lib/my/my_strcat.c      \
           lib/my/my_strncat.c     \
-          lib/my/my_strdup.c
+          lib/my/my_strdup.c      \
+          lib/my/my_strcmp.c      \
+          lib/my/my_strncmp.c     \
+          lib/my/my_strchr.c      \
+          lib/my/my_strrchr.c     \
+          lib/my/my_strstr.c      \
+          lib/my/my_revstr.c
 
 OBJ     = $(SRC:.c=.o)
 
