@@ -1,5 +1,23 @@
+# Compiled objects
+obj/
+libmy.a
+
+# Test executables
+tests/test_my
+
+# Editor/IDE files
+*.swp
+*.swo
+*~
+.*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
 .vibe/
-.vscode/
-build/
+unit_tests
+vgcore.*
+
 *.o
-*.a
+AGENTS.md

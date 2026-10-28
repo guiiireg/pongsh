@@ -1,47 +1,80 @@
-##
-## Makefile
-##
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Werror -Iinclude
 
-CC	= gcc
-AR	= ar
-CFLAGS	= -Wall -Wextra -Werror -std=c99 -Iinclude -Isrc
-ARFLAGS	= rc
+NAME    = libmy.a
 
-BUILD		= build
-OBJ_DIR		= $(BUILD)/obj
+SRC     = lib/my/io/my_putchar.c            \
+          lib/my/io/my_putstr.c             \
+          lib/my/io/my_puterr.c             \
+          lib/my/ctype/my_isalpha.c         \
+          lib/my/ctype/my_isdigit.c         \
+          lib/my/ctype/my_isalnum.c          \
+          lib/my/ctype/my_isupper.c         \
+          lib/my/ctype/my_islower.c         \
+          lib/my/ctype/my_isprint.c         \
+          lib/my/ctype/my_isascii.c         \
+          lib/my/ctype/my_toupper.c         \
+          lib/my/ctype/my_tolower.c         \
+          lib/my/string/my_strlen.c         \
+          lib/my/string/my_strcpy.c         \
+          lib/my/string/my_strncpy.c        \
+          lib/my/string/my_strcat.c         \
+          lib/my/string/my_strncat.c        \
+          lib/my/string/my_strdup.c         \
+          lib/my/string/my_strcmp.c         \
+          lib/my/string/my_strncmp.c        \
+          lib/my/string/my_strchr.c         \
+          lib/my/string/my_strrchr.c        \
+          lib/my/string/my_strstr.c         \
+          lib/my/string/my_revstr.c         \
+          lib/my/memory/my_memset.c         \
+          lib/my/memory/my_bzero.c          \
+          lib/my/memory/my_memcpy.c         \
+          lib/my/memory/my_memmove.c        \
+          lib/my/memory/my_memchr.c         \
+          lib/my/memory/my_memcmp.c         \
+          lib/my/memory/my_calloc.c         \
+          lib/my/word_array/my_str_to_word_array.c \
+          lib/my/word_array/my_show_word_array.c   \
+          lib/my/word_array/my_free_word_array.c   \
+          lib/my/word_array/my_sort.c       \
+          lib/my/word_array/my_sort_word_array.c \
+          lib/my/word_array/my_word_array_fill.c \
+          lib/my_printf/core/my_printf.c             \
+          lib/my_printf/core/printf_directive.c      \
+          lib/my_printf/core/printf_walker.c         \
+          lib/my_printf/core/printf_emit.c           \
+          lib/my_printf/parse/printf_parse.c          \
+          lib/my_printf/parse/printf_parse_flags.c    \
+          lib/my_printf/parse/printf_parse_size.c     \
+          lib/my_printf/render/printf_number_digits.c  \
+          lib/my_printf/render/printf_number_prefix.c  \
+          lib/my_printf/render/printf_number_emit.c    \
+          lib/my_printf/render/printf_render.c         \
+          lib/my_printf/convert/printf_convert.c        \
+          lib/my_printf/convert/printf_convert_char.c   \
+          lib/my_printf/convert/printf_convert_string.c \
+          lib/my_printf/convert/printf_convert_int.c
 
-MY_SRC		= $(wildcard src/my/*.c)
-MY_PRINTF_SRC	= $(wildcard src/my_printf/*.c)
-TESTS_SRC	= $(wildcard tests/my/*.c) $(wildcard tests/my_printf/*.c)
+OBJ     = $(SRC:.c=.o)
 
-MY_OBJ		= $(MY_SRC:src/%.c=$(OBJ_DIR)/%.o)
-MY_PRINTF_OBJ	= $(MY_PRINTF_SRC:src/%.c=$(OBJ_DIR)/%.o)
+all: $(NAME)
 
-LIBMY		= $(BUILD)/libmy.a
-LIBMY_PRINTF	= $(BUILD)/libmy_printf.a
-TESTS_BIN	= $(BUILD)/tests_libmy
-
-all:		$(LIBMY) $(LIBMY_PRINTF)
-
-$(LIBMY):	$(MY_OBJ)
-		$(AR) $(ARFLAGS) $@ $^
-
-$(LIBMY_PRINTF):	$(MY_PRINTF_OBJ)
-		$(AR) $(ARFLAGS) $@ $^
-
-$(OBJ_DIR)/%.o:	src/%.c
-		mkdir -p $(dir $@)
-		$(CC) $(CFLAGS) -c $< -o $@
-
-tests_run:	re
-		$(CC) $(CFLAGS) $(TESTS_SRC) -L$(BUILD) -lmy_printf -lmy -lcriterion -o $(TESTS_BIN)
+$(NAME): $(OBJ)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 clean:
-		rm -rf $(BUILD)
+	rm -f $(OBJ)
 
-fclean:		clean
+fclean: clean
+	rm -f $(NAME) unit_tests
 
-re:		fclean
-		+@"$(MAKE)" all
+re: fclean all
 
-.PHONY:		all clean fclean re tests_run
+tests_run: $(SRC) $(wildcard tests/test_*.c)
+	gcc -Wall -Wextra -Werror -Iinclude $(SRC) $(wildcard tests/test_*.c) \
+	    -lcriterion -o unit_tests
+	./unit_tests
+
+.PHONY: all clean fclean re tests_run
