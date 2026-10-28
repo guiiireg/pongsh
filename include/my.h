@@ -25,5 +25,12 @@ char *my_strchr(char const *str, int c);
 char *my_strrchr(char const *str, int c);
 char *my_strstr(char const *str, char const *needle);
 int my_revstr(char *str);
+void *my_memset(void *s, int c, int n);
+int my_bzero(void *s, int n);
+void *my_memcpy(void *dest, void const *src, int n);
+void *my_memmove(void *dest, void const *src, int n);
+void *my_memchr(void const *s, int c, int n);
+int my_memcmp(void const *s1, void const *s2, int n);
+void *my_calloc(int nmemb, int size);
 
 #endif // MY_H_

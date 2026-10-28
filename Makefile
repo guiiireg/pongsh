@@ -26,7 +26,14 @@ SRC     = lib/my/my_putchar.c     \
           lib/my/my_strchr.c      \
           lib/my/my_strrchr.c     \
           lib/my/my_strstr.c      \
-          lib/my/my_revstr.c
+          lib/my/my_revstr.c      \
+          lib/my/my_memset.c      \
+          lib/my/my_bzero.c       \
+          lib/my/my_memcpy.c      \
+          lib/my/my_memmove.c     \
+          lib/my/my_memchr.c      \
+          lib/my/my_memcmp.c      \
+          lib/my/my_calloc.c
 
 OBJ     = $(SRC:.c=.o)
 
