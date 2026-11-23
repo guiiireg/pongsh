@@ -8,7 +8,9 @@ char *my_strncpy(char *dest, char const *src, int n)
         dest[index] = src[index];
         index++;
     }
-    while (index < n)
-        dest[index++] = '\0';
+    while (index < n) {
+        dest[index] = '\0';
+        index++;
+    }
     return dest;
 }
