@@ -350,6 +350,49 @@ static void test_my_showmem(void)
     expect_output(expected, sizeof(expected) - 1);
 }
 
+static void test_my_printf_formats(void)
+{
+    char const expected[] = "name: -0042 0x2a % 005";
+    int printed;
+
+    start_capture();
+    printed = my_printf("%s: %+05d %#x %% %.3u", "name", -42, 42u, 5u);
+    expect_output(expected, sizeof(expected) - 1);
+    TEST_ASSERT_EQUAL_INT(sizeof(expected) - 1, printed);
+}
+
+static void test_my_printf_empty_output(void)
+{
+    int printed;
+
+    start_capture();
+    printed = my_printf("%s", "");
+    expect_output("", 0);
+    TEST_ASSERT_EQUAL_INT(0, printed);
+}
+
+static void test_my_printf_dynamic_fields(void)
+{
+    char const expected[] = "[ab   ] [0][] [+12] [Z] [-42] [FF]";
+    int printed;
+
+    start_capture();
+    printed = my_printf("[%*.*s] [%#.0o][%.0x] [%+d] [%c] [%lld] [%X]",
+        -5, 2, "abc", 0u, 0u, 12, 'Z', -42LL, 255u);
+    expect_output(expected, sizeof(expected) - 1);
+    TEST_ASSERT_EQUAL_INT(sizeof(expected) - 1, printed);
+}
+
+static void test_my_printf_rejects_unsupported_conversion(void)
+{
+    int result;
+
+    start_capture();
+    result = my_printf("%q");
+    expect_output("", 0);
+    TEST_ASSERT_EQUAL_INT(-1, result);
+}
+
 static void run_numbers_tests(void)
 {
     RUN_TEST(test_my_swap);
@@ -391,6 +434,10 @@ static void run_output_tests(void)
     RUN_TEST(test_my_putstr);
     RUN_TEST(test_my_showstr);
     RUN_TEST(test_my_showmem);
+    RUN_TEST(test_my_printf_formats);
+    RUN_TEST(test_my_printf_empty_output);
+    RUN_TEST(test_my_printf_dynamic_fields);
+    RUN_TEST(test_my_printf_rejects_unsupported_conversion);
 }
 
 int main(void)
