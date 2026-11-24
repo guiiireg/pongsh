@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define LS_LINK_INITIAL_SIZE 128u
-
 static int show_target(char const *path, char *buffer, size_t capacity)
 {
     ssize_t length = readlink(path, buffer, capacity);

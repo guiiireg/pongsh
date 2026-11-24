@@ -6,7 +6,10 @@
     #include <sys/stat.h>
     #include <time.h>
 
-typedef struct ls_options {
+    #define LS_HALF_YEAR 15778476u
+    #define LS_LINK_INITIAL_SIZE 128u
+
+typedef struct ls_options_s {
     int all;
     int long_format;
     int recursive;
@@ -15,11 +18,11 @@ typedef struct ls_options {
     int by_time;
 } ls_options_t;
 
-typedef struct ls_entry {
+typedef struct ls_entry_s {
     char const *name;
     char *path;
     struct stat info;
-    struct ls_entry *next;
+    struct ls_entry_s *next;
 } ls_entry_t;
 
 int ls_parse_options(int argc, char **argv, ls_options_t *options);

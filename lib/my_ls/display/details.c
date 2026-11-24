@@ -3,8 +3,6 @@
 #include <pwd.h>
 #include <time.h>
 
-#define LS_HALF_YEAR 15778476u
-
 void ls_owner(struct stat const *info)
 {
     struct passwd *user = getpwuid(info->st_uid);
