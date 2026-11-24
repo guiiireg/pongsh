@@ -1,8 +1,8 @@
-#include "my.h"
-#include "my_printf_internal.h"
+#include "../../include/my.h"
+#include "../../include/my_printf_internal.h"
 #include <limits.h>
 
-static int print_text(printf_output_t *out, printf_spec_t const *spec,
+static int print_text(int *out, printf_spec_t const *spec,
     char const *text)
 {
     printf_field_t field = {.text = text};
@@ -19,7 +19,7 @@ static int print_text(printf_output_t *out, printf_spec_t const *spec,
     return my_printf_field(out, spec, &field);
 }
 
-static int print_argument(printf_output_t *out, printf_spec_t const *spec,
+static int print_argument(int *out, printf_spec_t const *spec,
     va_list *args)
 {
     char byte;
@@ -38,7 +38,7 @@ static int print_argument(printf_output_t *out, printf_spec_t const *spec,
 
 static int print_format(char const *format, va_list *args)
 {
-    printf_output_t out = {0};
+    int out = 0;
     printf_spec_t spec;
     char const *start;
 
@@ -56,7 +56,7 @@ static int print_format(char const *format, va_list *args)
         if (print_argument(&out, &spec, args) < 0)
             return -1;
     }
-    return out.count;
+    return out;
 }
 
 int my_printf(char const *format, ...)

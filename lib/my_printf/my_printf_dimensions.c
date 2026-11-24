@@ -1,4 +1,4 @@
-#include "my_printf_internal.h"
+#include "../../include/my_printf_internal.h"
 #include <limits.h>
 
 static int read_number(char const **format, va_list *args, int *number)
@@ -29,7 +29,7 @@ static int read_width(char const **format, printf_spec_t *spec, va_list *args)
         return -1;
     if (spec->width < 0) {
         spec->flags |= PRINTF_LEFT;
-        spec->width = -spec->width;
+        spec->width = 0 - spec->width;
     }
     return 0;
 }

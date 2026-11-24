@@ -3,6 +3,7 @@
 #include "my.h"
 #include "unity.h"
 #include <limits.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -383,6 +384,20 @@ static void test_my_printf_dynamic_fields(void)
     TEST_ASSERT_EQUAL_INT(sizeof(expected) - 1, printed);
 }
 
+static void test_my_printf_intmax(void)
+{
+    char expected[128];
+    int length = snprintf(expected, sizeof(expected), "%jd %ju",
+        INTMAX_MIN, UINTMAX_MAX);
+    int printed;
+
+    TEST_ASSERT_TRUE(length > 0 && (size_t)length < sizeof(expected));
+    start_capture();
+    printed = my_printf("%jd %ju", INTMAX_MIN, UINTMAX_MAX);
+    expect_output(expected, (size_t)length);
+    TEST_ASSERT_EQUAL_INT(length, printed);
+}
+
 static void test_my_printf_rejects_unsupported_conversion(void)
 {
     int result;
@@ -437,6 +452,7 @@ static void run_output_tests(void)
     RUN_TEST(test_my_printf_formats);
     RUN_TEST(test_my_printf_empty_output);
     RUN_TEST(test_my_printf_dynamic_fields);
+    RUN_TEST(test_my_printf_intmax);
     RUN_TEST(test_my_printf_rejects_unsupported_conversion);
 }
 

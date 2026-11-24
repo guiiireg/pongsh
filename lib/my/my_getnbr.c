@@ -7,7 +7,7 @@ static int read_sign(char const **str)
 
     while (**str == '+' || **str == '-') {
         if (**str == '-')
-            sign = -sign;
+            sign = 0 - sign;
         (*str)++;
     }
     return sign;
@@ -17,7 +17,7 @@ int my_getnbr(char const *str)
 {
     int sign = read_sign(&str);
     int value = 0;
-    int limit = -INT_MAX;
+    int limit = 0 - INT_MAX;
     int digit;
 
     if (sign < 0)
@@ -31,5 +31,5 @@ int my_getnbr(char const *str)
     }
     if (sign < 0)
         return value;
-    return -value;
+    return 0 - value;
 }

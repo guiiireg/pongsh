@@ -1,4 +1,4 @@
-#include "my_printf_internal.h"
+#include "../../include/my_printf_internal.h"
 #include <limits.h>
 
 static unsigned int number_base(char type)
@@ -66,7 +66,7 @@ static void set_zeros(printf_field_t *field, printf_spec_t const *spec)
         field->zeros = digits_width - field->length;
 }
 
-int my_printf_integer(printf_output_t *out, printf_spec_t const *spec,
+int my_printf_integer(int *out, printf_spec_t const *spec,
     va_list *args)
 {
     printf_field_t field = {0};

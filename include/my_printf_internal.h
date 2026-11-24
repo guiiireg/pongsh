@@ -5,6 +5,9 @@
     #include <stddef.h>
     #include <stdint.h>
 
+    #define PRINTF_READ_INTMAX(args) va_arg(*(args), intmax_t)
+    #define PRINTF_READ_UINTMAX(args) va_arg(*(args), uintmax_t)
+
 enum printf_flag {
     PRINTF_LEFT = 1,
     PRINTF_PLUS = 2,
@@ -13,35 +16,36 @@ enum printf_flag {
     PRINTF_ZERO = 16
 };
 
-enum printf_length {
-    PRINTF_DEFAULT, PRINTF_HH, PRINTF_H, PRINTF_L, PRINTF_LL, PRINTF_J
-};
+typedef enum printf_length_e {
+    PRINTF_DEFAULT,
+    PRINTF_HH,
+    PRINTF_H,
+    PRINTF_L,
+    PRINTF_LL,
+    PRINTF_J
+} printf_length_t;
 
-typedef struct printf_spec {
+typedef struct printf_spec_s {
     unsigned int flags;
     int width;
     int precision;
-    enum printf_length length;
+    printf_length_t length;
     char type;
 } printf_spec_t;
 
-typedef struct printf_output {
-    int count;
-} printf_output_t;
-
-typedef struct printf_field {
-    char const *text;
+typedef struct printf_field_s {
+    const char *text;
     int length;
-    char const *prefix;
+    const char *prefix;
     int prefix_length;
     int zeros;
 } printf_field_t;
 
 int my_printf_parse(char const **format, printf_spec_t *spec, va_list *args);
-int my_printf_write(printf_output_t *out, char const *bytes, size_t length);
-int my_printf_field(printf_output_t *out, printf_spec_t const *spec,
+int my_printf_write(int *out, char const *bytes, size_t length);
+int my_printf_field(int *out, printf_spec_t const *spec,
     printf_field_t const *field);
-int my_printf_integer(printf_output_t *out, printf_spec_t const *spec,
+int my_printf_integer(int *out, printf_spec_t const *spec,
     va_list *args);
 
 int my_printf_read_dimensions(char const **format, printf_spec_t *spec,

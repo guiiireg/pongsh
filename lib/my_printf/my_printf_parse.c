@@ -1,4 +1,4 @@
-#include "my_printf_internal.h"
+#include "../../include/my_printf_internal.h"
 
 static unsigned int flag_for(char c)
 {
@@ -18,24 +18,28 @@ static unsigned int flag_for(char c)
     }
 }
 
-static enum printf_length read_length(char const **format)
+static printf_length_t read_pair(char const **format,
+    printf_length_t single, printf_length_t pair)
 {
-    char c = **format;
-
-    if (c != 'h' && c != 'l' && c != 'j')
-        return PRINTF_DEFAULT;
-    (*format)++;
-    if (c == 'j')
-        return PRINTF_J;
-    if (**format == c) {
-        (*format)++;
-        if (c == 'h')
-            return PRINTF_HH;
-        return PRINTF_LL;
+    if ((*format)[0] == (*format)[1]) {
+        *format += 2;
+        return pair;
     }
-    if (c == 'h')
-        return PRINTF_H;
-    return PRINTF_L;
+    (*format)++;
+    return single;
+}
+
+static printf_length_t read_length(char const **format)
+{
+    if (**format == 'h')
+        return read_pair(format, PRINTF_H, PRINTF_HH);
+    if (**format == 'l')
+        return read_pair(format, PRINTF_L, PRINTF_LL);
+    if (**format == 'j') {
+        (*format)++;
+        return PRINTF_J;
+    }
+    return PRINTF_DEFAULT;
 }
 
 int my_printf_parse(char const **format, printf_spec_t *spec, va_list *args)

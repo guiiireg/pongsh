@@ -1,9 +1,9 @@
-#include "my_printf_internal.h"
+#include "../../include/my_printf_internal.h"
 
-static intmax_t read_signed(va_list *args, enum printf_length length)
+static intmax_t read_signed(va_list *args, printf_length_t length)
 {
     if (length == PRINTF_J)
-        return va_arg(*args, intmax_t);
+        return PRINTF_READ_INTMAX(args);
     if (length == PRINTF_LL)
         return va_arg(*args, long long);
     if (length == PRINTF_L)
@@ -15,10 +15,10 @@ static intmax_t read_signed(va_list *args, enum printf_length length)
     return va_arg(*args, int);
 }
 
-static uintmax_t read_unsigned(va_list *args, enum printf_length length)
+static uintmax_t read_unsigned(va_list *args, printf_length_t length)
 {
     if (length == PRINTF_J)
-        return va_arg(*args, uintmax_t);
+        return PRINTF_READ_UINTMAX(args);
     if (length == PRINTF_LL)
         return va_arg(*args, unsigned long long);
     if (length == PRINTF_L)
@@ -30,11 +30,9 @@ static uintmax_t read_unsigned(va_list *args, enum printf_length length)
     return va_arg(*args, unsigned int);
 }
 
-static void get_signed_value(printf_field_t *field, enum printf_length length,
-    va_list *args, uintmax_t *value)
+static void set_signed_value(printf_field_t *field, intmax_t number,
+    uintmax_t *value)
 {
-    intmax_t number = read_signed(args, length);
-
     *value = (uintmax_t)number;
     if (number < 0) {
         field->prefix = "-";
@@ -50,7 +48,7 @@ int my_printf_read_integer(printf_field_t *field, printf_spec_t const *spec,
         return 0;
     }
     if (spec->type == 'd' || spec->type == 'i') {
-        get_signed_value(field, spec->length, args, value);
+        set_signed_value(field, read_signed(args, spec->length), value);
         return 0;
     }
     if (spec->type == 'u' || spec->type == 'o' || spec->type == 'x'
