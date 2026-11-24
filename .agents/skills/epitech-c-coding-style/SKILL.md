@@ -23,11 +23,15 @@ restriction.
 
 Use the additional `my_ls` API list in `AGENTS.md` for that module.
 
+For shell sources under `src/`, enforce the dedicated external function
+allowlist in `AGENTS.md`.
+
 - **Generate.** Apply the active rules as you write. Keep functions focused,
   split translation units when they reach their limits and use only necessary
   dependencies. Compile with the project's normal build.
-- **Review.** In pongsh, run `bash coding-style.sh . .` from the root and
-  read `coding-style-reports.log`. Ignore C-G1 and fix every other reported
+- **Verify.** After each change to pongsh C sources or headers, run
+  `make clean` and then `bash coding-style.sh . .` from the repository root.
+  Read `coding-style-reports.log`. Ignore C-G1 and fix every other reported
   violation in scope. Rerun the command after fixes. Check the report even
   when the exit status reflects ignored C-G1 findings. For projects without
   the official wrapper, use the bundled checker as described in the

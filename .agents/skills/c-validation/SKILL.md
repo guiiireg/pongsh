@@ -37,7 +37,7 @@ results and any checks blocked by missing dependencies or unsupported tools.
 
 ## Commands for pongsh
 
-- Run `make test` from the root to build and execute the Unity suite.
+- Run `make test` from the root for all unit and integration suites.
 - For a fresh strict build, use a new temporary directory with
   `make test BUILD_DIR=/path/to/temp CFLAGS='-std=c11 -Wall -Wextra -Werror -pedantic'`.
 - Build the production library with `make -C lib/my` when validating
@@ -50,7 +50,9 @@ results and any checks blocked by missing dependencies or unsupported tools.
 - Build `my_ls` with `make my_ls` and exercise the CLI with
   `make test-ls`. The extra functions listed for `my_ls` in
   `AGENTS.md` apply only to that module.
-- Check Epitech style with `bash coding-style.sh . .` from the repository
-  root. Keep generated build artifacts outside the scanned tree or clean
-  them first. Read `coding-style-reports.log`, ignore C-G1, fix the other
+- Build the shell with `make pongsh` and run `make test-pongsh`.
+  Check source-level external calls under `src/` against the shell
+  allowlist in `AGENTS.md`.
+- After changing project C sources or headers, run `make clean` and then
+  `bash coding-style.sh . .` from the repository root. Read `coding-style-reports.log`, ignore C-G1, fix the other
   reported violations and rerun the command.

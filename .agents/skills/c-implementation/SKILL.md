@@ -39,6 +39,14 @@ The `my_ls` module also allows `opendir`, `readdir`, `closedir`,
 `readlink`, `perror`, `strerror` and `exit`. Use `errno` as needed with
 these APIs. Other modules retain their existing restrictions.
 
+The shell in `src/` may call project functions and the following external
+functions: `malloc`, `free`, `exit`, `opendir`, `readdir`, `closedir`,
+`getcwd`, `chdir`, `fork`, `stat`, `lstat`, `fstat`, `open`, `close`,
+`getline`, `strtok`, `strtok_r`, `read`, `write`, `execve`, `access`,
+`isatty`, `wait`, `waitpid`, `wait3`, `wait4`, `signal`, `kill`,
+`getpid`, `strerror`, `perror` and `strsignal`. Standard types, macros and
+`errno` are available. This list applies only to the shell.
+
 ## References
 
 - [Objects, pointers and memory](references/memory.md) for storage duration,

@@ -10,10 +10,15 @@ The `my_ls` executable starts in `lib/my_ls/my_ls.c`. Keep its directory
 traversal, output and option parsing in the corresponding subdirectories
 and its declarations in `include/my_ls.h`.
 
+The `pongsh` executable starts in `src/main.c`. Its builtins, environment,
+execution, input and parser modules live under `src/`. Shared declarations
+live in `include/pongsh.h`.
+
 ## Build Commands
 
 Run these commands from the repository root.
 
+- `make` or `make pongsh` builds the interactive shell.
 - `make my_ls` builds the `my_ls` executable.
 - `make -C lib/my` builds or updates the static library.
 - `make -C lib/my re CFLAGS='-std=c11 -Wall -Wextra -Werror -pedantic'` rebuilds from scratch with strict compiler diagnostics.
@@ -21,9 +26,9 @@ Run these commands from the repository root.
 
 ## Coding Style
 
-Use four spaces for C indentation and put function opening braces on their own line. Use `my_` for public function names and match each public declaration to its definition. Limit every function to four parameters and 20 lines. Use descriptive names and keep the C code free of comments.
+Use four spaces for C indentation and put function opening braces on their own line. Use `my_` for public function names and match each public declaration to its definition. Limit every function to four parameters and 20 lines. Use descriptive names and keep the C code free of comments. Name project structure tags with `_s` and their typedef aliases with `_t`, as in `typedef struct shell_s { … } shell_t;`.
 
-Run `bash coding-style.sh . .` from the repository root to check Epitech style. Read `coding-style-reports.log` for file paths, line numbers, and rule IDs. Ignore C-G1 because this project does not require an Epitech banner. Fix the other reported violations and rerun the command. Use a clean source tree for the check, with generated build artifacts removed.
+After every change to a project `.c` or `.h` file, run `make clean` and then `bash coding-style.sh . .` from the repository root to check Epitech style. Read `coding-style-reports.log` for file paths, line numbers, and rule IDs. Ignore C-G1 because this project does not require an Epitech banner. Fix the other reported violations and rerun the command. Use a clean source tree for the check, with generated build artifacts removed.
 
 Production C code may call only `write`, `malloc`, `free`, and
 project-defined functions such as `my_putchar`. Implement other operations
@@ -36,9 +41,21 @@ The `my_ls` module also allows `opendir`, `readdir`, `closedir`,
 `readlink`, `perror`, `strerror` and `exit`. Use `errno` as needed with
 these APIs. Other modules retain their existing restrictions.
 
+The shell in `src/` may call project functions and the following external
+functions: `malloc`, `free`, `exit`, `opendir`, `readdir`, `closedir`,
+`getcwd`, `chdir`, `fork`, `stat`, `lstat`, `fstat`, `open`, `close`,
+`getline`, `strtok`, `strtok_r`, `read`, `write`, `execve`, `access`,
+`isatty`, `wait`, `waitpid`, `wait3`, `wait4`, `signal`, `kill`,
+`getpid`, `strerror`, `perror` and `strsignal`. Standard types, macros and
+`errno` are available. This list applies only to the shell.
+
 ## Testing
 
-Run `make test` from the repository root to compile and run both Unity suites against a separate build of the static library. The test runner and its build artifacts live under `tests/`. Run `make clean` at the repository root to remove test build artifacts.
+Run `make test` from the repository root to run all unit and integration
+tests for `libmy`, `my_ls`, and `pongsh`. Run `make test-libmy` for only
+the library tests. Run `make clean` to remove test build artifacts.
+
+Run `make test-pongsh` for the shell integration tests.
 
 Run `make test-ls-unit` for the Unity cases in `tests/test_my_ls.c`. Run
 `make test-ls` for those cases and the listing CLI tests against filesystem
