@@ -2,3 +2,4 @@
 /lib/my/*.o
 /lib/my/libmy.a
 /my_ls
+/pongsh

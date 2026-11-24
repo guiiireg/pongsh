@@ -1,5 +1,7 @@
 # pongsh
 
+Run `make test` to run all unit and integration suites.
+
 ## my_printf
 
 `my_printf` writes to standard output through `write`. It returns the
@@ -23,3 +25,15 @@ be grouped. Use `--` before operands that begin with a dash.
 
 Run `make test-ls-unit` for the Unity suite and `make test-ls` to run the
 unit and CLI integration tests.
+
+## pongsh
+
+Run `make` and start the shell with `./pongsh`. It reads commands from
+standard input and shows a prompt on a terminal. It resolves external
+commands through `PATH` or an explicit path and provides `cd`, `env`,
+`setenv`, `unsetenv` and `exit` as builtins. Single and double quotes,
+backslash escapes and semicolon-separated commands are supported. Pipes,
+redirections, expansions and job control are outside this implementation.
+
+Run `make test-pongsh` to exercise command execution, parsing, environment
+changes, working-directory changes and exit statuses.

@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := test
+.DEFAULT_GOAL := pongsh
 
 BUILD_DIR := tests/.build
 UNITY_DIR := tests/vendor/unity
@@ -15,9 +15,15 @@ LS_DIR := lib/my_ls
 LS_FILES := $(sort $(wildcard $(LS_DIR)/*.c $(LS_DIR)/*/*.c))
 LS_UNIT_BIN := $(BUILD_DIR)/test_my_ls
 LS_UNIT_MODULES := options/options.c directory/sort.c directory/entry.c
-LS_UNIT_SOURCES := tests/test_my_ls.c $(addprefix $(LS_DIR)/,$(LS_UNIT_MODULES))
+LS_UNIT_FILES := $(addprefix $(LS_DIR)/,$(LS_UNIT_MODULES))
+LS_UNIT_SOURCES := tests/test_my_ls.c $(LS_UNIT_FILES)
 LS_FLAGS := -D_DEFAULT_SOURCE -ffreestanding -Iinclude
 LS_BUILD := $(CC) $(CPPFLAGS) $(CFLAGS) $(LS_FLAGS) $(LDFLAGS)
+
+SH_DIR := src
+SH_FILES := $(sort $(wildcard $(SH_DIR)/*.c $(SH_DIR)/*/*.c))
+SH_FLAGS := -D_DEFAULT_SOURCE -ffreestanding -Iinclude
+SH_BUILD := $(CC) $(CPPFLAGS) $(CFLAGS) $(SH_FLAGS) $(LDFLAGS)
 
 vpath %.c $(LIB_DIRS)
 UNITY_HEADERS := $(addprefix $(UNITY_DIR)/,unity.h unity_internals.h)
@@ -28,7 +34,9 @@ LS_UNIT_INPUTS := $(LS_UNIT_SOURCES) $(UNITY_DIR)/unity.c $(TEST_ARCHIVE)
 LS_UNIT_DEPS := $(UNITY_HEADERS) include/my_ls.h include/my.h Makefile
 CFLAGS += -std=c11 -Wall -Wextra
 
-test: $(TEST_BIN) test-ls-unit
+test: test-libmy test-ls test-pongsh
+
+test-libmy: $(TEST_BIN)
 	$(abspath $(TEST_BIN))
 
 test-ls-unit: $(LS_UNIT_BIN)
@@ -39,6 +47,12 @@ test-ls: my_ls test-ls-unit
 
 my_ls: $(LS_FILES) $(LIB_DEPS) lib/my/libmy.a
 	$(LS_BUILD) $(LS_FILES) lib/my/libmy.a $(LDLIBS) -o $@
+
+test-pongsh: pongsh
+	sh tests/test_pongsh.sh $(abspath pongsh)
+
+pongsh: $(SH_FILES) $(LIB_DEPS) lib/my/libmy.a
+	$(SH_BUILD) $(SH_FILES) lib/my/libmy.a $(LDLIBS) -o $@
 
 lib/my/libmy.a: $(LIB_SOURCES) $(LIB_DEPS) lib/my/Makefile
 	$(MAKE) -C lib/my
@@ -60,6 +74,7 @@ $(BUILD_DIR):
 
 clean:
 	$(RM) -r $(BUILD_DIR)
-	$(RM) my_ls
+	$(RM) my_ls pongsh
+	$(MAKE) -C lib/my fclean
 
-.PHONY: test test-ls test-ls-unit clean
+.PHONY: test test-libmy test-ls test-ls-unit test-pongsh clean
