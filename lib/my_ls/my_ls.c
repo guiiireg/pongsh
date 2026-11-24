@@ -1,33 +1,44 @@
 #include "my_ls.h"
 
+static int list_directories(ls_entry_t const *entries,
+    ls_options_t const *options, int multiple, int *printed)
+{
+    int status = 0;
+
+    while (entries && !options->directory) {
+        if (S_ISDIR(entries->info.st_mode))
+            status |= ls_list_directory(entries->path, options,
+                multiple || options->recursive, printed);
+        entries = entries->next;
+    }
+    return status;
+}
+
 static int list_operands(ls_entry_t *entries, ls_options_t const *options,
     int multiple)
 {
     ls_entry_t *entry = entries;
     int printed = 0;
+    ls_columns_t columns = {0};
     int status = 0;
 
+    if (options->long_format)
+        ls_measure(&columns, entries, !options->directory);
     while (entry) {
         if (options->directory || !S_ISDIR(entry->info.st_mode)) {
-            status |= ls_display(entry, options);
+            status |= ls_display(entry, options, &columns);
             printed = 1;
         }
         entry = entry->next;
     }
-    while (entries && !options->directory) {
-        if (S_ISDIR(entries->info.st_mode))
-            status |= ls_list_directory(entries->path, options,
-                multiple || options->recursive, &printed);
-        entries = entries->next;
-    }
-    return status;
+    return status | list_directories(entries, options, multiple, &printed);
 }
 
 static int collect_operand(char const *name, ls_entry_t **entries,
     ls_options_t const *options)
 {
     ls_entry_t *entry = ls_create_entry(name, NULL,
-        !options->long_format && !options->directory);
+        !options->directory);
 
     if (!entry)
         return 1;

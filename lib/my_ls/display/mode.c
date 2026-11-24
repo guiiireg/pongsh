@@ -14,7 +14,7 @@ static char file_type(mode_t mode)
         return 'p';
     if (S_ISSOCK(mode))
         return 's';
-    return '-';
+    return '.';
 }
 
 static void set_special(char *access, mode_t mode)

@@ -28,18 +28,18 @@ void ls_text(char const *text)
     ls_write(text, (size_t)my_strlen(text));
 }
 
-void ls_number(uintmax_t value)
+void ls_spaces(size_t count)
 {
-    char buffer[sizeof(value) * CHAR_BIT];
-    char *end = buffer + sizeof(buffer);
-    char *digit = end;
+    char const spaces[] = "                                ";
+    size_t chunk;
 
-    do {
-        digit--;
-        *digit = '0' + value % 10;
-        value /= 10;
-    } while (value);
-    ls_write(digit, (size_t)(end - digit));
+    while (count) {
+        chunk = sizeof(spaces) - 1;
+        if (chunk > count)
+            chunk = count;
+        ls_write(spaces, chunk);
+        count -= chunk;
+    }
 }
 
 void ls_header(char const *path, int *printed)

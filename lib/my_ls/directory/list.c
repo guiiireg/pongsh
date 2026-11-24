@@ -40,30 +40,17 @@ static int read_entries(DIR *dir, char const *path, ls_entry_t **entries,
     return status;
 }
 
-static void display_total(ls_entry_t const *entry)
-{
-    uintmax_t blocks = 0;
-
-    while (entry) {
-        if (entry->info.st_blocks > 0)
-            blocks += (uintmax_t)entry->info.st_blocks;
-        entry = entry->next;
-    }
-    ls_text("total ");
-    ls_number(blocks / 2 + blocks % 2);
-    ls_text("\n");
-}
-
 static int display_entries(ls_entry_t const *entries,
     ls_options_t const *options, int *printed)
 {
     int status = 0;
     ls_entry_t const *entry = entries;
+    ls_columns_t columns = {0};
 
     if (options->long_format)
-        display_total(entries);
+        ls_measure(&columns, entries, 0);
     while (entry) {
-        status |= ls_display(entry, options);
+        status |= ls_display(entry, options, &columns);
         entry = entry->next;
     }
     *printed = 1;
