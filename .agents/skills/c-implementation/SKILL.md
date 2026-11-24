@@ -34,6 +34,11 @@ other APIs for projects that allow them. Standard types, constants and
 variadic macros are available. The Unity test harness is outside this
 production restriction.
 
+The `my_ls` module also allows `opendir`, `readdir`, `closedir`,
+`stat`, `lstat`, `getpwuid`, `getgrgid`, `time`, `ctime`,
+`readlink`, `perror`, `strerror` and `exit`. Use `errno` as needed with
+these APIs. Other modules retain their existing restrictions.
+
 ## References
 
 - [Objects, pointers and memory](references/memory.md) for storage duration,

@@ -47,6 +47,9 @@ results and any checks blocked by missing dependencies or unsupported tools.
   sites and, when useful, check optimized library objects with `nm -u`.
   Distinguish toolchain runtime symbols from source-level calls.
   Unity tests and tooling may use the standard library.
+- Build `my_ls` with `make my_ls` and exercise the CLI with
+  `make test-ls`. The extra functions listed for `my_ls` in
+  `AGENTS.md` apply only to that module.
 - Check Epitech style with `bash coding-style.sh . .` from the repository
   root. Keep generated build artifacts outside the scanned tree or clean
   them first. Read `coding-style-reports.log`, ignore C-G1, fix the other

@@ -21,6 +21,8 @@ The allowed calls are `write`, `malloc`, `free`, and project-defined
 functions such as `my_putchar`. Unity and test tooling are outside this
 restriction.
 
+Use the additional `my_ls` API list in `AGENTS.md` for that module.
+
 - **Generate.** Apply the active rules as you write. Keep functions focused,
   split translation units when they reach their limits and use only necessary
   dependencies. Compile with the project's normal build.

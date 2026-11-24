@@ -6,10 +6,15 @@ The repository contains `libmy`, a C11 static library. Public declarations live 
 
 The library Makefile builds both modules into `lib/my/libmy.a`. Keep the generated archive and object files out of version control.
 
+The `my_ls` executable starts in `lib/my_ls/my_ls.c`. Keep its directory
+traversal, output and option parsing in the corresponding subdirectories
+and its declarations in `include/my_ls.h`.
+
 ## Build Commands
 
 Run these commands from the repository root.
 
+- `make my_ls` builds the `my_ls` executable.
 - `make -C lib/my` builds or updates the static library.
 - `make -C lib/my re CFLAGS='-std=c11 -Wall -Wextra -Werror -pedantic'` rebuilds from scratch with strict compiler diagnostics.
 - `make -C lib/my clean` removes intermediate object files and keeps the archive. `make -C lib/my fclean` also removes the archive.
@@ -26,9 +31,18 @@ in the project. Standard types, constants and variadic macros are allowed.
 This restriction applies to production code. Unity and its test harness may
 use standard library and test-support functions.
 
+The `my_ls` module also allows `opendir`, `readdir`, `closedir`,
+`stat`, `lstat`, `getpwuid`, `getgrgid`, `time`, `ctime`,
+`readlink`, `perror`, `strerror` and `exit`. Use `errno` as needed with
+these APIs. Other modules retain their existing restrictions.
+
 ## Testing
 
-Run `make test` from the repository root to compile and run the Unity suite against a separate build of the static library. The test runner and its build artifacts live under `tests/`. Run `make clean` at the repository root to remove test build artifacts.
+Run `make test` from the repository root to compile and run both Unity suites against a separate build of the static library. The test runner and its build artifacts live under `tests/`. Run `make clean` at the repository root to remove test build artifacts.
+
+Run `make test-ls-unit` for the Unity cases in `tests/test_my_ls.c`. Run
+`make test-ls` for those cases and the listing CLI tests against filesystem
+fixtures.
 
 Add cases to `tests/test_libmy.c` using the `test_my_<function>` naming pattern and register them with `RUN_TEST`. Cover normal inputs and relevant boundaries, such as empty strings, integer limits, and partial output rows. When changing the public API, use `nm -g --defined-only lib/my/libmy.a` to verify the exported symbols.
 
