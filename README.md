@@ -26,6 +26,11 @@ entries), `-l` (details), `-R` (recursive), `-d` (directory operands),
 `-r` (reverse) and `-t` (most recent modification first). Options can
 be grouped. Use `--` before operands that begin with a dash.
 
+Long listings show permissions, decimal sizes with a French decimal
+separator, owner, modification date, icon and name. The long and short
+listings select and sort entries the same way.
+Use a Nerd Font in the terminal to display the icons.
+
 Run `make test-ls-unit` for the Unity suite and `make test-ls` to run the
 unit and CLI integration tests.
 
