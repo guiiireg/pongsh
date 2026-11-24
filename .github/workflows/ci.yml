@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Build and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Run all tests with strict compiler flags
+        run: make test CFLAGS='-std=c11 -Wall -Wextra -Werror -pedantic'
+
+  style:
+    name: Epitech coding style
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Check the official style report
+        run: |
+          report=coding-style-reports.log
+          status=0
+          bash coding-style.sh . . || status=$?
+
+          if [[ ! -r "$report" || "$status" -gt 1 ]]; then
+            echo "::error::Epitech checker did not produce a usable report (exit $status)."
+            exit 1
+          fi
+
+          awk -F: '
+            $1 != "" && $2 ~ /^[0-9]+$/ &&
+                $3 ~ /^ (MAJOR|MINOR|INFO)$/ && $4 == "C-G1" { next }
+            { print; failed = 1 }
+            END { exit failed ? 1 : 0 }
+          ' "$report"
+      - name: Upload coding style report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: coding-style-report
+          path: coding-style-reports.log
+          if-no-files-found: ignore

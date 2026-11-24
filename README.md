@@ -2,6 +2,9 @@
 
 Run `make test` to run all unit and integration suites.
 
+GitHub Actions runs the tests and the Epitech style check on every push to
+`main`. The style job ignores C-G1 and uploads the full checker report.
+
 ## my_printf
 
 `my_printf` writes to standard output through `write`. It returns the
